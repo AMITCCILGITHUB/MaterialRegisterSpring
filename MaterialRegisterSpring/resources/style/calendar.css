@@ -1,0 +1,104 @@
+.datepicker-invalid {
+	-fx-border-color: red;
+}
+
+.datepicker-valid {
+	-fx-border-color: null;
+}
+
+.calendar-header {
+	-fx-background-color: linear-gradient(to bottom, derive(-fx-base, -70%),
+		derive(-fx-base, -90%) );
+	-fx-padding: 4;
+}
+
+.calendar-footer {
+	-fx-background-color: linear-gradient(to top, derive(-fx-base, -70%),
+		derive(-fx-base, -90%) );
+	-fx-padding: 4;
+}
+
+.calendar-month-view,.calendar-year-view,.calendar-decades-view {
+	-fx-background-color: linear-gradient(to bottom, derive(-fx-base, 80%),
+		derive(-fx-base, 40%) );
+	-fx-padding: 4;
+}
+
+.calendar-cell-current-month,.calendar-year-button,.calendar-month-button
+	{
+	-fx-background-color: null;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0, 0, 0, 0;
+	-fx-cursor: hand;
+	-fx-padding: 4;
+	-fx-font-weight: bold;
+	-fx-background-radius: 8;
+}
+
+.calendar-cell-current-month:hover,.calendar-year-button:hover,.calendar-month-button:hover
+	{
+	-fx-background-color: -fx-cell-hover-color;
+}
+
+.calendar-cell-other-month {
+	-fx-background-color: null;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0, 0, 0, 0;
+	-fx-opacity: 0.5;
+	-fx-cursor: hand;
+	-fx-padding: 2;
+	-fx-background-radius: 8;
+}
+
+.calendar-cell-other-month:hover {
+	-fx-background-color: -fx-cell-hover-color;
+}
+
+.calendar-cell-today {
+	-fx-background-color: -fx-accent;
+}
+
+.calendar-navigation-button,.calendar-navigation-title,.calendar-today-button
+	{
+	-fx-background-color: null;
+	-fx-cursor: hand;
+	-fx-text-fill: white;
+}
+
+.calendar-navigation-title:disabled {
+	-fx-opacity: 1;
+}
+
+.calendar-nav-left {
+	-fx-padding: 0;
+	-fx-cursor: hand;
+	-fx-background-color: null;
+	-fx-background-image: url("../images/carousel-prev.png");
+	-fx-background-position: center top;
+}
+
+.calendar-nav-left:hover {
+	-fx-background-position: center bottom;
+}
+
+.calendar-nav-right {
+	-fx-padding: 0;
+	-fx-cursor: hand;
+	-fx-background-color: null;
+	-fx-background-image: url("../images/carousel-next.png");
+	-fx-background-position: center top;
+}
+
+.calendar-nav-right:hover {
+	-fx-background-position: center bottom;
+}
+
+.calendar-weekdays {
+	-fx-background-color: -fx-body-color;
+	-fx-padding: 3;
+}
+
+.calendar-week-number {
+	-fx-font-size: 0.8em;
+	-fx-padding: 4;
+}

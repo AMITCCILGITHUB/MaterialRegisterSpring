@@ -1,0 +1,15 @@
+.status-bar-content {
+	-fx-padding: 8 0 8 10;
+	-fx-border-color: #3079ED;
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
+	-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #4080F0 0%, #4D90FE 48%, #458AF5
+		52%, #357AE8 100%);
+}
+
+.status-bar-label {
+	-fx-font-size: 12px;
+	-fx-fill: white;
+	-fx-font-family: "Arial Black";
+	-fx-padding: 0 0 0 10;
+}

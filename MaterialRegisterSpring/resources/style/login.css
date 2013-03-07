@@ -1,0 +1,47 @@
+.login-pane {
+	-fx-background-image: url("../images/login.png");
+	-fx-background-repeat: stretch;
+	-fx-background-radius: 10px;
+	-fx-background-size: 500 400;
+	-fx-background-position: center center;
+}
+
+.close-button {
+	-fx-background-color: null;
+	-fx-cursor: hand;
+	-fx-background-image: url("../images/close.png");
+}
+
+.login-pane TextField {
+	-fx-background-color: null;
+	-fx-border: none;
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+	-fx-font-size: 10px;
+}
+
+.error-button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/error.gif");
+}
+
+.submit-button {
+	-fx-background-color: linear-gradient(#f2f2f2, #d6d6d6),
+		linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+		linear-gradient(#dddddd 0%, #f6f6f6 50%);
+	-fx-background-radius: 5, 4, 3;
+	-fx-background-insets: 0, 1, 2;
+	-fx-text-fill: black;
+	-fx-font-size: 12px;
+	-fx-padding: 4 16 4 16;
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1
+		);
+	-fx-cursor: hand;
+	-fx-font-weight: bold;
+	-fx-cursor: hand;
+}
+
+.submit-button:hover {
+	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 8, 0.5,
+		0, 0 );
+}

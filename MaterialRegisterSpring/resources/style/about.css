@@ -1,0 +1,31 @@
+.map-content {
+	-fx-padding: 8;
+	-fx-border-color: #3079ED;
+	-fx-border-style: solid;
+	-fx-border-width: 10;
+}
+
+.map-submit-button {
+	-fx-border-radius: 2;
+	-fx-border-color: #2F5BB7;
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
+	-fx-cursor: default;
+	-fx-padding: 0 8 0 8;
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+	-fx-font-family: "Arial,sans-serif";
+	-fx-background-radius: 2, 2;
+	-fx-background-color: #4D90FE,
+		linear-gradient(from 0% 0% to 0% 100%, #4D90FE 0%, #4787ED 100%);
+}
+
+.map-submit-button:hover {
+	-fx-border-radius: 2;
+	-fx-border-color: #3079ED;
+	-fx-border-style: solid;
+	-fx-border-width: 1px;
+	-fx-background-radius: 2, 2;
+	-fx-background-color: #4D90FE,
+		linear-gradient(from 0% 0% to 0% 100%, #4D90FE 0%, #357AE8 100%);
+}

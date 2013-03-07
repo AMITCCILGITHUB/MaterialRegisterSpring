@@ -1,0 +1,2 @@
+jfx.build.stagingdir = ${workspace}/MaterialRegisterSpring/build
+jfx.build.apptitle = MaterialRegisterSpring

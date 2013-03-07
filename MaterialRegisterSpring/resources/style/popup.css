@@ -1,0 +1,57 @@
+.popUpHeader {
+	-fx-background-color: #808080;
+	-fx-background-radius: 8 8 0 0;
+	-fx-border-width: 0 0 1 0;
+	-fx-border-color: #6e737d, rgba(255, 255, 255, 0.3);
+	-fx-border-insets: 0, 1;
+	-fx-cursor: move;
+	-fx-padding: 0 4 0 4;
+}
+
+.close-button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/close.png");
+}
+
+.submit-button {
+	-fx-background-color: linear-gradient(#f2f2f2, #d6d6d6),
+		linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+		linear-gradient(#dddddd 0%, #f6f6f6 50%);
+	-fx-background-radius: 5, 4, 3;
+	-fx-background-insets: 0, 1, 2;
+	-fx-text-fill: black;
+	-fx-font-size: 12px;
+	-fx-padding: 4 16 4 16;
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1
+		);
+	-fx-cursor: hand;
+	-fx-font-weight: bold;
+	-fx-cursor: hand;
+	-fx-font-size: 10px;
+}
+
+.submit-button:hover {
+	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 8, 0.5,
+		0, 0 );
+}
+
+.popUpHeaderLbl {
+	-fx-font-size: 14;
+	-fx-font-weight: bold;
+	-fx-font-family: arial;
+	-fx-text-fill: #F8F8F8;
+}
+
+.popUpBody {
+	-fx-background-color: #F8F8F8;
+}
+
+.popUpActionBox {
+	-fx-background-color: #F8F8F8;
+	-fx-background-radius: 0 0 8 8;
+}
+
+.popUpStage {
+	-fx-background-radius: 10px;
+	-fx-border-insets: 10;
+}

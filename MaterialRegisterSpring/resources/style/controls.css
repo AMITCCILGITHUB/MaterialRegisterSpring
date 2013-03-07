@@ -1,0 +1,132 @@
+.text-field:disabled {
+	-fx-opacity: 0.8;
+}
+
+.submit-button {
+	-fx-background-color: linear-gradient(#f2f2f2, #d6d6d6),
+		linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
+		linear-gradient(#dddddd 0%, #f6f6f6 50%);
+	-fx-background-radius: 5, 4, 3;
+	-fx-background-insets: 0, 1, 2;
+	-fx-text-fill: black;
+	-fx-font-size: 12px;
+	-fx-padding: 4 16 4 16;
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1
+		);
+	-fx-cursor: hand;
+	-fx-font-weight: bold;
+	-fx-cursor: hand;
+	-fx-font-size: 10px;
+}
+
+.submit-button:hover {
+	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 8, 0.5,
+		0, 0 );
+}
+
+.edit-button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/edit-clear.gif");
+}
+
+.error-button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/error.gif");
+}
+
+.text-check-box {
+	-fx-background-color: white, lightgray,
+		linear-gradient(rgb(250, 250, 250), rgb(230, 230, 230) );
+	-fx-background-insets: 0 0 0 106, 1 1 1 107, 2 2 2 108;
+	-fx-background-radius: 2, 2, 2, 2;
+	-fx-padding-left: 4;
+	-fx-text-fill: black;
+}
+
+.editable-check-box {
+	-fx-text-fill: black;
+}
+
+.next-button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/next.png");
+}
+
+.previous-button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/previous.png");
+}
+
+.next-button:hover,.next-button:selected,.next-button:focused,.previous-button:hover,.previous-button:selected,.previous-button:focused
+	{
+	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 10, 0.5,
+		0, 0 );
+}
+
+.view-text-box {
+	-fx-background-insets: 0 0 0 4, 3, 2 2 2 2;
+	-fx-background-radius: 2, 2, 2, 2;
+	-fx-padding-left: 4;
+}
+
+.view-box {
+	-fx-background-color: rgba(255, 255, 255, 0.5);
+	-fx-background-insets: 2 -8 2 108;
+	-fx-background-radius: 2;
+	-fx-padding-left: 4;
+	-fx-text-fill: black;
+}
+
+.view-check-box {
+	-fx-text-fill: black;
+}
+
+.result-combo-box {
+	-fx-background-color: white, rgb(200, 200, 200),
+		linear-gradient(rgb(170, 170, 170), rgb(220, 220, 220) );
+	-fx-background-insets: 0, 1, 2;
+	-fx-background-radius: 2, 2, 2;
+	-fx-background-image: url("../images/seperator.png");
+	-fx-background-position: 108 center;
+	-fx-background-repeat: no-repeat;
+	-fx-font-size: 11px;
+	-fx-text-fill: black;
+}
+
+.arrow-button {
+	-fx-background-color: null;
+}
+
+.combo-box-popup .list-view .list-cell {
+	-fx-background-color: rgb(210, 210, 210);
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+	-fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .list-cell:last-child {
+	-fx-background-color: rgb(210, 210, 210);
+	-fx-background-insets: 0 0 2 2;
+	-fx-background-radius: 0 0 2 2;
+	-fx-text-fill: black;
+}
+
+.combo-box-popup .list-view .list-cell:hover {
+	-fx-background-color: linear-gradient(rgb(190, 190, 190),
+		rgb(150, 150, 150) );
+}
+
+.check-box .box {
+	-fx-background-color: rgb(142, 143, 143), rgb(244, 244, 244),
+		linear-gradient(to bottom right, rgb(174, 179, 185) 0%,
+		rgb(233, 233, 234) 75%, rgb(233, 233, 234) 100% ),
+		linear-gradient(to bottom right, rgb(203, 207, 213) 0%,
+		rgb(246, 246, 246) 84%, rgb(246, 246, 246) 100% );
+	-fx-background-insets: 0, 1, 2, 3;
+	-fx-background-radius: 0, 0, 0, 0;
+	-fx-padding: 0.25em;
+}
+
+.check-box .text {
+	-fx-text-fill: black;
+}

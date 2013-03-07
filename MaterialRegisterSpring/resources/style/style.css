@@ -1,0 +1,640 @@
+#root {
+	-fx-background-color: #333333;
+	-fx-padding: 1px;
+}
+
+#ModalDimmer {
+	-fx-background-color: rgba(0, 0, 0, 0.5);
+}
+
+#ProxyDialog {
+	-fx-background-color: black, white, linear-gradient(rgb(250, 250, 250),
+		rgb(230, 230, 230) );
+	-fx-background-insets: 0, 1, 2;
+	-fx-background-radius: 15, 14, 13;
+	-fx-padding: 15;
+	-fx-effect: dropshadow(three-pass-box, black, 20, 0, 0, 0);
+}
+
+#ProxyDialog #title {
+	-fx-font-size: 1.4em;
+	-fx-font-weight: bold;
+	-fx-text-fill: orangered;
+}
+
+#mainToolBar {
+	-fx-padding: 10px;
+	-fx-background-image: url("../images/top-bar.png");
+	-fx-background-size: cover;
+	-fx-background-position: left top;
+	-fx-background-repeat: no-repeat;
+}
+
+#newButton {
+	-fx-background-color: null;
+	-fx-padding: -10 0 -10 0;
+	-fx-background-image: url("../images/ribbon-new.png");
+	-fx-background-position: left top;
+	-fx-background-repeat: no-repeat;
+}
+
+#highlightsButton {
+	-fx-background-color: null;
+	-fx-padding: -10 0 -10 0;
+	-fx-background-image: url("../images/ribbon-highlights.png");
+	-fx-background-position: left top;
+	-fx-background-repeat: no-repeat;
+}
+
+#highlightsButton:hover,#newButton:hover {
+	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 10, 0.5,
+		0, 0 );
+}
+
+#SearchBox .text-field {
+	-fx-background-color: white;
+	-fx-background-insets: 1;
+	-fx-background-radius: 15;
+	-fx-padding: -9 5 -11 0;
+	-fx-border-image-source: url("../images/search-box.png");
+	-fx-border-image-slice: 12 12 12 22 fill;
+	-fx-border-image-width: 12 12 12 22;
+	-fx-border-image-repeat: stretch;
+	-fx-font-size: 13px;
+	-fx-prompt-text-fill: grey;
+}
+
+#SearchBox .text-field:focused {
+	-fx-background-color: -fx-focus-color, white;
+	-fx-background-insets: -1.4, 1;
+	-fx-background-radius: 14.4;
+}
+
+#SearchBox .button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/search-clear.png");
+}
+
+#SearchBox .button:hover {
+	-fx-background-image: url("../images/search-clear-over.png");
+}
+
+.search-menu-item {
+	-fx-border-color: transparent transparent transparent #bbbbbb;
+	-fx-border-insets: 0 0 0 69;
+	-fx-padding: 4 5 4 -64;
+}
+
+.search-menu-item:selected,.search-menu-item:hover,.search-menu-item:focused
+	{
+	-fx-border-color: transparent transparent transparent
+		derive(-fx-focus-color, 30%);
+}
+
+.search-menu-item-popup-region {
+	-fx-opacity: 0;
+}
+
+.search-menu-item:hover .search-menu-item-popup-region,.search-menu-item:focused .search-menu-item-popup-region
+	{
+	-fx-opacity: 1;
+}
+
+#search-info-box {
+	-fx-padding: -30 -6 -8 -2;
+	-fx-border-image-source: url("../images/info-tooltip.png");
+	-fx-border-image-slice: 34 20 12 12 fill;
+	-fx-border-image-width: 34 20 12 12;
+	-fx-border-image-repeat: stretch;
+}
+
+#search-info-name {
+	-fx-text-fill: white;
+}
+
+#search-info-description {
+	-fx-padding: 5 0 5 0;
+	-fx-text-fill: white;
+}
+
+.group-label {
+	-fx-text-fill: #666666;
+	-fx-font-size: 11px;
+	-fx-padding: 2 10 0 0;
+}
+
+.search-menu-item:selected .group-label,.search-menu-item:hover .group-label,.search-menu-item:focused .group-label
+	{
+	-fx-text-fill: white;
+}
+
+#window-resize-button {
+	-fx-background-image: url("../images/window-corner.png");
+	-fx-background-position: right 1px bottom 1px;
+	-fx-background-repeat: no-repeat;
+}
+
+#window-close {
+	-fx-font-size: 1px;
+	-fx-background-color: null;
+	-fx-background-image: url("../images/window-close.png");
+	-fx-padding: 6 6 4 6;
+}
+
+#window-min {
+	-fx-font-size: 1px;
+	-fx-background-color: null;
+	-fx-background-image: url("../images/window-min.png");
+	-fx-padding: 6 6 4 6;
+}
+
+#window-max {
+	-fx-font-size: 1px;
+	-fx-background-color: null;
+	-fx-background-image: url("../images/window-expand.png");
+	-fx-padding: 6 6 4 6;
+}
+
+#window-close:hover {
+	-fx-background-image: url("../images/window-close-over.png");
+}
+
+#window-min:hover {
+	-fx-background-image: url("../images/window-min-over.png");
+}
+
+#window-max:hover {
+	-fx-background-image: url("../images/window-expand-over.png");
+}
+
+#page-area {
+	-fx-padding: 0;
+}
+
+#page-splitpane {
+	-fx-background-color: null;
+	-fx-background-insets: 0;
+	-fx-padding: 0;
+}
+
+#page-splitpane *.split-pane-divider {
+	-fx-padding: 0 1 0 0;
+	-fx-background-color: transparent, #333333;
+	-fx-background-insets: 0 -3 0 -3, 0;
+	-fx-border-color: null;
+}
+
+#page-splitpane *.horizontal-grabber {
+	-fx-padding: 0;
+	-fx-shape: "";
+}
+
+#page-toolbar {
+	-fx-border-image-source: url("../images/mid-bar-right.png");
+	-fx-border-image-slice: 1 0 1 0 fill;
+	-fx-border-image-width: 1 0 1 0;
+	-fx-border-image-repeat: stretch;
+	-fx-padding: -1px 0px 0px 0px;
+	-fx-spacing: 0;
+}
+
+#page-toolbar HBox {
+	-fx-fill-height: true;
+	-fx-alignment: center-left;
+}
+
+#page-toolbar .button {
+	-fx-background-color: null;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0;
+	-fx-padding: 3px 6px 4px 6px;
+	-fx-border-color: transparent #6e737d transparent
+		rgba(255, 255, 255, 0.3), transparent rgba(255, 255, 255, 0.3)
+		transparent transparent;
+	-fx-border-insets: 0, 0 1 0 1;
+}
+
+#page-toolbar #SettingsButton {
+	-fx-border-color: transparent transparent transparent #6e737d,
+		transparent transparent transparent rgba(255, 255, 255, 0.3);
+	-fx-border-insets: 0, 0 1 0 1;
+}
+
+#page-toolbar .button:hover {
+	-fx-background-color: rgba(255, 255, 255, 0.4);
+}
+
+#page-toolbar .breadcrumb-bar {
+	-fx-padding: 0;
+}
+
+#page-tree-toolbar {
+	-fx-padding: 26 4 4 4;
+	-fx-border-image-source: url("../images/mid-bar-left.png");
+	-fx-border-image-slice: 1 0 1 0 fill;
+	-fx-border-image-width: 1 0 1 0;
+	-fx-border-image-repeat: stretch;
+}
+
+#page-tree .tree-cell {
+	-fx-padding: 4 0 4 10;
+	-fx-background-color: transparent;
+}
+
+#page-tree .tree-cell:odd {
+	-fx-background-color: transparent;
+}
+
+#page-tree .tree-cell:filled:selected:focused,#page-tree .tree-cell:filled:selected
+	{
+	-fx-background: -fx-accent;
+	-fx-background-color: -fx-selection-bar;
+	-fx-text-fill: -fx-selection-bar-text;
+}
+
+#page-tree {
+	-fx-background-color: #d1dee3;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+	-fx-padding: 0;
+	-fx-effect: innershadow(one-pass-box, rgba(0, 0, 0, 0.2), 30, 0.0, 0, 0
+		);
+}
+
+#page-tree .tree-cell:hover {
+	-fx-background-color: #1589FF;
+}
+
+#page-tree .tree-cell:selected {
+	-fx-background-image: url("../images/arrow-right.png");
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: left center;
+	-fx-padding: 4 0 4 24;
+}
+
+#page-tree:focused {
+	-fx-background-color: #d1dee3;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+}
+
+/* Window Button Styles */
+.window-button {
+	-fx-skin: "com.sun.javafx.scene.control.skin.ButtonSkin";
+	-fx-background-color: #616161, #464646, #505050;
+	-fx-background-insets: 0, 1, 2;
+	-fx-background-radius: 6, 5, 4;
+	-fx-padding: 0 0 0 0;
+	/* workaround for button sizing */
+	-fx-font-size: 1px;
+}
+
+.window-button:focused {
+	-fx-background-color: -fx-accent, #464646, #505050;
+	-fx-background-insets: -0.4, 1, 2;
+	-fx-background-radius: 6.4, 5, 4;
+}
+
+.window-button:hover {
+	-fx-background-color: #616161, white, -fx-accent;
+}
+
+.window-button:pressed {
+	-fx-background-color: #616161, white, #303030;
+}
+
+.window-button Rectangle {
+	-fx-fill: #949494;
+}
+
+.window-button:hover Rectangle {
+	-fx-fill: white;
+}
+
+/* Page Styles */
+.page-header {
+	-fx-font-size: 1.3em;
+	-fx-font-weight: bold;
+	-fx-padding: 0 0 2px 0;
+	-fx-border-color: transparent transparent #AAAAAA transparent;
+	-fx-border-insets: 0 0 8px 0;
+	-fx-text-fill: #0072aa;
+	/*  -fx-effect: dropshadow( three-pass-box , white , 0, 0.0 , 10 , 1 ); */
+}
+
+.page-subheader {
+	-fx-font-size: 1.2em;
+	-fx-font-weight: bold;
+	-fx-padding: 8px 0 2px 0;
+	-fx-border-color: transparent transparent #AAAAAA transparent;
+	-fx-border-insets: 0 0 8px 0;
+	-fx-text-fill: #0072aa;
+	/*  -fx-effect: dropshadow( three-pass-box , white , 0, 0.0 , 10 , 1 ); */
+}
+
+/* Category Page Styles */
+.category-page {
+	-fx-padding: 8px 8px 42px 8px;
+}
+
+.texture-bg {
+	-fx-background-image: url("../images/texture.png");
+	-fx-background-repeat: repeat repeat;
+	-fx-background-position: left top;
+}
+
+.category-page .page-header {
+	-fx-padding: 8px 0 10px 0;
+	-fx-border-color: null;
+	-fx-font-size: 1.3em;
+	-fx-font-weight: bold;
+	-fx-text-fill: linear-gradient(white, #acacac);
+	-fx-effect: innershadow(three-pass-box, rgba(255, 255, 255, 0.7), 0, 0.0,
+		0, -1 );
+}
+
+.category-page .label {
+	-fx-text-fill: white;
+}
+
+.view-page {
+	-fx-background-image: url("../images/texture.png");
+	-fx-background-repeat: repeat repeat;
+	-fx-background-position: left top;
+	-fx-padding: 8px;
+}
+
+.view-page .page-header {
+	-fx-padding: 8px 0 10px 0;
+	-fx-border-color: null;
+	-fx-font-size: 1.3em;
+	-fx-font-weight: bold;
+	-fx-text-fill: linear-gradient(white, #acacac);
+	-fx-effect: innershadow(three-pass-box, rgba(255, 255, 255, 0.7), 0, 0.0,
+		0, -1 );
+}
+
+.view-page .label {
+	-fx-text-fill: white;
+}
+
+.view-page .check-box {
+	-fx-text-fill: black;
+}
+
+.category-header {
+	-fx-padding: 4px 0 5px 0;
+	-fx-background-color: rgba(0, 0, 0, 0.12);
+	-fx-background-insets: 2 -7 2 -7;
+	-fx-border-color: rgba(255, 255, 255, 0.2) transparent
+		rgba(255, 255, 255, 0.2) transparent;
+	-fx-border-insets: 3 -8 3 -8;
+}
+
+.category-header .label {
+	-fx-font-size: 1em;
+	-fx-font-weight: bold;
+	-fx-text-fill: linear-gradient(white, #acacac);
+	-fx-effect: innershadow(three-pass-box, rgba(255, 255, 255, 0.7), 0, 0.0,
+		0, -1 );
+}
+
+.category-page-flow {
+	-fx-padding: 3px 0 32px 0;
+}
+
+/* Remove all scrollpane borders */
+.noborder-scroll-pane {
+	-fx-padding: 0;
+	-fx-background-color: null;
+	-fx-background-insets: 0;
+}
+
+/* move buttom arrow up to make room for window rewsize button */
+.application .noborder-scroll-pane>*>.scroll-bar:vertical {
+	-fx-padding: -1.0 -1.0 12 0.0;
+}
+
+.application .web-view-window-corner .scroll-bar:vertical {
+	-fx-padding: 0 0 12 0;
+}
+
+/* make scroll bar arrow buttons little bigger */
+.scroll-bar:vertical .increment-button {
+	-fx-padding: 0.25em 0.25em 0.35em 0.25em;
+}
+
+.scroll-bar:horizontal .increment-button {
+	-fx-padding: 0.25em 0.25em 0.25em 0.35em;
+}
+
+.scroll-bar:vertical .decrement-button {
+	-fx-padding: 0.35em 0.25em 0.25em 0.25em;
+}
+
+.scroll-bar:horizontal .decrement-button {
+	-fx-padding: 0.25em 0.35em 0.25em 0.25em;
+}
+
+.result-menu-item {
+	-fx-border-color: transparent;
+	-fx-border-insets: 0 0 0 69;
+	-fx-padding: 4 5 4 -64;
+}
+
+.result-menu-item:selected,.result-menu-item:hover,.result-menu-item:focused
+	{
+	-fx-border-color: transparent;
+}
+
+.result-menu-item-popup-region {
+	-fx-opacity: 0;
+}
+
+.result-menu-item:hover .result-menu-item-popup-region,.result-menu-item:focused .result-menu-item-popup-region
+	{
+	-fx-opacity: 1;
+}
+
+#page-toolbar #LogoutButton {
+	-fx-border-color: transparent transparent transparent #6e737d,
+		transparent transparent transparent rgba(255, 255, 255, 0.3);
+	-fx-border-insets: 0, 0 1 0 1;
+	-fx-cursor: hand;
+}
+
+#page-toolbar #LogoutButton:hover {
+	-fx-background-color: rgba(255, 255, 255, 0.4);
+}
+
+.bottom-bar {
+	-fx-border-color: rgb(1, 1, 1) transparent transparent transparent;
+	-fx-border-width: 1;
+	-fx-border-image-source: url("../images/mid-bar-right.png");
+	-fx-border-image-slice: 1 0 1 0 fill;
+	-fx-border-image-width: 1 0 1 0;
+	-fx-border-image-repeat: stretch;
+	-fx-padding: 6 6 0 6;
+	-fx-spacing: 0;
+	-fx-font-family: "Helvetica";
+	-fx-font-size: 10px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #333333;
+	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.2), 1, 0.0,
+		0, 1 );
+}
+
+.bottom-bar Text {
+	-fx-effect: dropshadow(one-pass-box, white, 0, 0.0, 0, 1);
+}
+
+/* The main scrollbar CSS class of ListView */
+.scroll-bar:horizontal,.scroll-bar:vertical {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+}
+
+/* The main scrollbar **track** CSS class  */
+.scroll-bar:horizontal .track,.scroll-bar:vertical .track {
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+	-fx-background-radius: 0;
+	-fx-border-radius: 2em;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.scroll-bar:horizontal .increment-button,.scroll-bar:horizontal .decrement-button
+	{
+	-fx-background-color: transparent;
+	-fx-background-radius: 0;
+	-fx-padding: 0 4 10 4;
+}
+
+/* The increment and decrement button CSS class of scrollbar */
+.scroll-bar:vertical .increment-button,.scroll-bar:vertical .decrement-button
+	{
+	-fx-background-color: transparent;
+	-fx-background-radius: 0em;
+	-fx-padding: 4 10 4 0;
+}
+
+.scroll-bar .increment-arrow,.scroll-bar .decrement-arrow {
+	-fx-shape: " ";
+	-fx-padding: 0;
+}
+
+/* The main scrollbar **thumb** CSS class which we drag every time (movable) */
+.scroll-bar:horizontal .thumb {
+	-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, dimgray 0%, lightslategray 100%);
+	-fx-background-insets: 0;
+	-fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .thumb:hover {
+	-fx-cursor: hand;
+}
+
+.scroll-bar:vertical .thumb {
+	-fx-background-color: linear-gradient(from 0% 0% to 100% 0%, dimgray 0%, lightslategray 100%);
+	-fx-background-insets: 0;
+	-fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+	-fx-cursor: hand;
+}
+
+/* Tab Pane Style */
+.tab-header-area {
+	-fx-padding: 0;
+	-fx-margin: 0;
+}
+
+.tab-header-area .tab-header-background {
+	-fx-background-image: url("../images/texture.png");
+	-fx-effect: dropshadow(three-pass-box, black, 10, 1, 3, 3);
+}
+
+.tab-header-area .tab {
+	-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #ffffff 0%, #e7db18 100%);
+	-fx-background-radius: 5 5 0 0;
+	-fx-background-insets: 1;
+}
+
+.tab-header-area .tab:selected {
+	-fx-background-color: linear-gradient(from 0% 0% to 0% 100%, #ffffff 0%, #bee6fa 100%);
+}
+
+.tab-header-area .tab-close-button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/search-clear.png");
+	-fx-background-insets: 0 0 0 8;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+}
+
+.tab-header-area .tab-close-button:hover {
+	-fx-background-image: url("../images/search-clear-over.png");
+}
+
+.titled-pane .title {
+	-fx-padding: 4px 0 5px 0;
+	-fx-background-color: rgba(0, 0, 0, 0.12);
+	-fx-background-insets: 2 -4 2 -4;
+	-fx-border-color: rgba(255, 255, 255, 0.2);
+	-fx-border-insets: 3 -8 3 -8;
+}
+
+.titled-pane .title .text {
+	-fx-fill: white;
+}
+
+.titled-pane .content {
+	-fx-background-color: null;
+	-fx-padding: 12 0 12 0;
+}
+
+/*table view */
+.table-view {
+	-fx-background-color: rgba(70, 70, 70, 0.8);
+	-fx-text-fill: white;
+	-fx-border-style: solid;
+	-fx-border-color: transparent;
+	-fx-border-width: 0.083333em, 0.083333em;
+}
+
+.table-view .column-header {
+	-fx-border-style: solid;
+	-fx-border-color: rgba(130, 130, 130, 0.8);
+	-fx-border-radius: 0;
+	-fx-background-radius: 0;
+	-fx-border-insets: 0 1 1 0, 0 0 0 0;
+	-fx-border-width: 0.083333em, 0.083333em;
+}
+
+.table-view .column-header .label {
+	-fx-font-size: 12px;
+	-fx-text-fill: white;
+}
+
+.table-view .column-header-background {
+	-fx-background-radius: 0;
+	-fx-font-family: "Calibri";
+	-fx-background-color: rgba(50, 50, 50, 0.8);
+}
+
+.table-row-cell:filled:even {
+	-fx-background-color: gray;
+}
+
+.table-row-cell:filled:odd {
+	-fx-background-color: steelblue;
+}
+
+.table-row-cell:empty {
+	-fx-background-color: rgba(70, 70, 70, 0.8);
+}
+
+.table-row-cell:filled:selected {
+	-fx-background-color: darkolivegreen;
+}
