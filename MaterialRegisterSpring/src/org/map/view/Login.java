@@ -25,6 +25,7 @@ import javafx.stage.StageStyle;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.map.controls.LoginTextBox;
 import org.map.controls.PasswordBox;
 import org.map.controls.SubmitButton;
@@ -43,6 +44,8 @@ import org.springframework.stereotype.Repository;
 @Repository("Login")
 public class Login extends Application {
 
+	private static final Logger logger = Logger.getLogger(Login.class);
+	
 	private double startDragX;
 	private double startDragY;
 
