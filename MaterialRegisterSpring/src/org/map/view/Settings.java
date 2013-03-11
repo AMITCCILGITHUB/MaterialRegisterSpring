@@ -1,5 +1,6 @@
 package org.map.view;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -11,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javax.annotation.Resource;
 
 import org.map.constants.PersistType;
-import org.map.controls.ErrorView;
 import org.map.controls.combobox.CodeComboBox;
 import org.map.hibernate.ddo.CodeMaster;
 import org.map.hibernate.property.CodeProperty;
@@ -23,14 +23,19 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("Settings")
-public class Settings {
+public class Settings implements AbstractPageView {
 
 	@Resource(name = "PersistCodeDetails")
 	private AbstractService<CodeMaster, Void> abstractService;
 
+	private ScrollPane pane;
+	public Settings(){
+	
+		pane = new ScrollPane();
+	}
+	
+	@Override
 	public Node showView() {
-
-		ScrollPane pane = new ScrollPane();
 
 		try {
 			VBox main = ViewLayout
@@ -80,10 +85,16 @@ public class Settings {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
 	}
 
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
+	}
+	
 	public AbstractService<CodeMaster, Void> getPersistCodeDetails() {
 		return abstractService;
 	}

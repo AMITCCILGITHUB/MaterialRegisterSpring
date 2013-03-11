@@ -1,6 +1,7 @@
 package org.map.view;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -19,7 +20,6 @@ import javafx.scene.layout.VBox;
 import javax.annotation.Resource;
 
 import org.map.constants.PersistType;
-import org.map.controls.ErrorView;
 import org.map.controls.PasswordBox;
 import org.map.hibernate.ddo.UserMaster;
 import org.map.logger.LoggerUtil;
@@ -30,14 +30,20 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("ChangePassword")
-public class ChangePassword {
+public class ChangePassword implements AbstractPageView {
 
 	@Resource(name = "PersistUserDetails")
 	private AbstractService<UserMaster, Void> abstractService;
 
+	private ScrollPane pane;
+	public ChangePassword(){
+		
+		pane = new ScrollPane();
+	}
+	
+	@Override
 	public Node showView() {
 
-		ScrollPane pane = new ScrollPane();
 		try {
 			VBox main = ViewLayout.getMainVBox("Change Password", "Details");
 
@@ -137,8 +143,14 @@ public class ChangePassword {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+	
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	public AbstractService<UserMaster, Void> getPersistUserDetails() {

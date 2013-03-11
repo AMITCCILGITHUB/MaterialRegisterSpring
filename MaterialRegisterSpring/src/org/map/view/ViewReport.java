@@ -3,6 +3,7 @@ package org.map.view;
 import javax.annotation.Resource;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,7 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import org.map.controls.ErrorView;
 import org.map.hibernate.register.MaterialRegister;
 import org.map.hibernate.utils.MaterialData;
 import org.map.logger.LoggerUtil;
@@ -32,7 +32,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("ViewReport")
-public class ViewReport {
+public class ViewReport implements AbstractPageView {
 
 	@Resource(name = "MaterialData")
 	private MaterialData materialData;
@@ -40,9 +40,16 @@ public class ViewReport {
 	@Resource(name = "PrintMaterialRegister")
 	private PrintMaterialRegister printMaterialRegister;
 
+	private ScrollPane pane;
+
+	public ViewReport() {
+
+		pane = new ScrollPane();
+	}
+
+	@Override
 	public Node showView() {
 
-		ScrollPane pane = new ScrollPane();
 		try {
 			VBox main = ViewLayout.getMainVBox("Material Register", "Details");
 
@@ -132,8 +139,14 @@ public class ViewReport {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+
+		return pane.opacityProperty();
 	}
 
 	public MaterialData getMaterialData() {

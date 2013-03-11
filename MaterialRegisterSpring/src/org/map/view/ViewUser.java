@@ -2,6 +2,7 @@ package org.map.view;
 
 import javax.annotation.Resource;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import org.map.controls.ErrorView;
 import org.map.controls.ViewBox;
 import org.map.hibernate.ddo.UserMaster;
 import org.map.hibernate.utils.UserData;
@@ -30,7 +30,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("ViewUser")
-public class ViewUser {
+public class ViewUser implements AbstractPageView {
 
 	@Resource(name = "UserData")
 	private UserData userData;
@@ -42,6 +42,7 @@ public class ViewUser {
 		pane = new TabPane();
 	}
 	
+	@Override
 	public Node showView() {
 
 		Tab tab = new Tab("View User : Details");
@@ -118,8 +119,14 @@ public class ViewUser {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	private void createViewTab(final UserMaster user) {

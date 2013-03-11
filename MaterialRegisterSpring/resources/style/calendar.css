@@ -9,7 +9,7 @@
 .calendar-header {
 	-fx-background-color: linear-gradient(to bottom, derive(-fx-base, -70%),
 		derive(-fx-base, -90%) );
-	-fx-padding: 4;
+	-fx-padding: 3;
 }
 
 .calendar-footer {
@@ -21,7 +21,7 @@
 .calendar-month-view,.calendar-year-view,.calendar-decades-view {
 	-fx-background-color: linear-gradient(to bottom, derive(-fx-base, 80%),
 		derive(-fx-base, 40%) );
-	-fx-padding: 4;
+	-fx-padding: 0;
 }
 
 .calendar-cell-current-month,.calendar-year-button,.calendar-month-button

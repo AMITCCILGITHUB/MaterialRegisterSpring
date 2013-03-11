@@ -3,6 +3,7 @@ package org.map.view;
 import java.net.MalformedURLException;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,7 +31,6 @@ import org.map.constants.PersistType;
 import org.map.constants.ValidationType;
 import org.map.controls.EditableBox;
 import org.map.controls.EditableIntBox;
-import org.map.controls.ErrorView;
 import org.map.controls.ViewBox;
 import org.map.controls.combobox.ValidationEditableComboBox;
 import org.map.hibernate.ddo.MaterialMaster;
@@ -48,7 +48,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("EditMaterial")
-public class EditMaterial {
+public class EditMaterial implements AbstractPageView {
 
 	@Resource(name = "PersistMaterialDetails")
 	private AbstractService<MaterialMaster, Void> abstractService;
@@ -60,6 +60,7 @@ public class EditMaterial {
 		pane = new TabPane();
 	}
 
+	@Override
 	public Node showView() {
 
 		Tab tab = new Tab("Edit Material : Search");
@@ -199,8 +200,14 @@ public class EditMaterial {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	private void createEditTab(final MaterialMaster material)

@@ -1,6 +1,7 @@
 package org.map.view;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -20,7 +21,6 @@ import javax.annotation.Resource;
 
 import org.map.constants.PersistType;
 import org.map.constants.ValidationType;
-import org.map.controls.ErrorView;
 import org.map.controls.TextBox;
 import org.map.controls.ViewIntegerBox;
 import org.map.hibernate.ddo.ValidationMaster;
@@ -35,7 +35,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("AddValidation")
-public class AddValidation {
+public class AddValidation implements AbstractPageView {
 
 	@Resource(name = "ValidationData")
 	private ValidationData validationData;
@@ -50,6 +50,7 @@ public class AddValidation {
 		pane = new TabPane();
 	}
 
+	@Override
 	public Node showView() {
 
 		try {
@@ -102,8 +103,14 @@ public class AddValidation {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	public void createAgencyTab() {

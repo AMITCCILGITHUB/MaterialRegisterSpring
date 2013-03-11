@@ -12,6 +12,7 @@ import org.map.view.EditHeatChart;
 import org.map.view.EditMaterial;
 import org.map.view.EditUser;
 import org.map.view.EditValidation;
+import org.map.view.LoadingView;
 import org.map.view.Settings;
 import org.map.view.ViewHeatChart;
 import org.map.view.ViewMaterial;
@@ -22,6 +23,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository("PageUtil")
 public class PageUtil {
+
+	@Resource(name = "LoadingView")
+	private LoadingView loadingView;
 
 	@Resource(name = "AddUser")
 	private AddUser addUser;
@@ -70,6 +74,14 @@ public class PageUtil {
 
 	@Resource(name = "DatabaseBackup")
 	private DatabaseBackup databaseBackup;
+
+	public LoadingView getLoadingView() {
+		return loadingView;
+	}
+
+	public void setLoadingView(LoadingView loadingView) {
+		this.loadingView = loadingView;
+	}
 
 	public AddUser getAddUser() {
 		return addUser;

@@ -1,6 +1,7 @@
 package org.map.view;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,7 +27,6 @@ import javax.annotation.Resource;
 
 import org.map.constants.PersistType;
 import org.map.constants.ValidationType;
-import org.map.controls.ErrorView;
 import org.map.controls.PasswordBox;
 import org.map.controls.ViewBox;
 import org.map.controls.combobox.ValidationEditableComboBox;
@@ -45,7 +45,7 @@ import org.map.validation.Validator;
 import org.springframework.stereotype.Repository;
 
 @Repository("EditUser")
-public class EditUser {
+public class EditUser implements AbstractPageView {
 	
 	@Resource(name="UserData")
 	private UserData userData;
@@ -60,6 +60,7 @@ public class EditUser {
 		pane = new TabPane();
 	}
 	
+	@Override
 	public Node showView() {
 
 		Tab tab = new Tab("Edit User : Details");
@@ -182,8 +183,14 @@ public class EditUser {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	private void createEditTab(final UserMaster user) {

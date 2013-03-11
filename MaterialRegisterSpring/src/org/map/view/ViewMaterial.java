@@ -1,5 +1,6 @@
 package org.map.view;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
-import org.map.controls.ErrorView;
 import org.map.controls.ViewBox;
 import org.map.controls.ViewIntegerBox;
 import org.map.hibernate.ddo.MaterialMaster;
@@ -30,7 +30,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("ViewMaterial")
-public class ViewMaterial {
+public class ViewMaterial implements AbstractPageView {
 
 	private TabPane pane;
 
@@ -39,6 +39,7 @@ public class ViewMaterial {
 		pane = new TabPane();
 	}
 	
+	@Override
 	public Node showView() {
 
 		Tab tab = new Tab("View Material : Search");
@@ -107,8 +108,14 @@ public class ViewMaterial {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	public void createViewTab(final MaterialMaster material) {

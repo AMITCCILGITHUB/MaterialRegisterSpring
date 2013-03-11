@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -26,7 +27,6 @@ import javax.annotation.Resource;
 import net.sf.jasperreports.engine.JRException;
 
 import org.map.constants.PersistType;
-import org.map.controls.ErrorView;
 import org.map.controls.SubmitButton;
 import org.map.controls.TextBox;
 import org.map.hibernate.ddo.HeatChartMaster;
@@ -44,7 +44,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("AddHeatChart")
-public class AddHeatChart {
+public class AddHeatChart implements AbstractPageView {
 
 	@Resource(name = "HeatChartData")
 	private HeatChartData heatChartData;
@@ -59,6 +59,7 @@ public class AddHeatChart {
 		pane = new ScrollPane();
 	}
 
+	@Override
 	public Node showView() {
 
 		try {
@@ -202,8 +203,7 @@ public class AddHeatChart {
 
 			Context.getWindowBottomText()
 					.textProperty()
-					.bind(Bindings.format("%s",
-							abstractService.stateProperty()));
+					.bind(Bindings.format("%s", abstractService.stateProperty()));
 
 			abstractService.stateProperty().addListener(
 					new ChangeListener<State>() {
@@ -314,8 +314,14 @@ public class AddHeatChart {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+	
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	public HeatChartData getHeatChartData() {

@@ -1,6 +1,7 @@
 package org.map.view;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,7 +24,6 @@ import javax.annotation.Resource;
 
 import org.map.constants.PersistType;
 import org.map.constants.ValidationType;
-import org.map.controls.ErrorView;
 import org.map.controls.IntBox;
 import org.map.controls.TextBox;
 import org.map.controls.ViewBox;
@@ -42,7 +42,7 @@ import org.map.validation.Validator;
 import org.springframework.stereotype.Repository;
 
 @Repository("AddMaterial")
-public class AddMaterial {
+public class AddMaterial implements AbstractPageView {
 
 	@Resource(name = "MaterialData")
 	private MaterialData materialData;
@@ -57,6 +57,7 @@ public class AddMaterial {
 		pane = new ScrollPane();
 	}
 
+	@Override
 	public Node showView() {
 
 		try {
@@ -277,8 +278,14 @@ public class AddMaterial {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	public MaterialData getMaterialData() {

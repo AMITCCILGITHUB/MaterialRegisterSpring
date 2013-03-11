@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,7 +34,6 @@ import net.sf.jasperreports.engine.JRException;
 import org.hibernate.HibernateException;
 import org.map.constants.PersistType;
 import org.map.controls.EditableBox;
-import org.map.controls.ErrorView;
 import org.map.hibernate.ddo.HeatChartMaster;
 import org.map.hibernate.ddo.HeatChartSheets;
 import org.map.hibernate.utils.Reporter;
@@ -50,7 +50,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("EditHeatChart")
-public class EditHeatChart {
+public class EditHeatChart implements AbstractPageView {
 
 	@Resource(name = "PersistHeatChartDetails")
 	private AbstractService<HeatChartMaster, Void> abstractService;
@@ -62,6 +62,7 @@ public class EditHeatChart {
 		pane = new TabPane();
 	}
 
+	@Override
 	public Node showView() {
 
 		Tab tab = new Tab("Edit Heat CHart : Search");
@@ -203,8 +204,14 @@ public class EditHeatChart {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	private void createEditTab(final HeatChartMaster heatChart)

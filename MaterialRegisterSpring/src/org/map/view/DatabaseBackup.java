@@ -2,6 +2,7 @@ package org.map.view;
 
 import java.io.File;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -13,7 +14,6 @@ import javafx.stage.FileChooser;
 
 import javax.annotation.Resource;
 
-import org.map.controls.ErrorView;
 import org.map.logger.LoggerUtil;
 import org.map.service.PersistDatabase;
 import org.map.utils.Alert;
@@ -22,14 +22,20 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("DatabaseBackup")
-public class DatabaseBackup {
+public class DatabaseBackup implements AbstractPageView {
 
 	@Resource(name = "PersistDatabase")
 	private PersistDatabase persistDatabase;
 
+	private ScrollPane pane;
+	
+	public DatabaseBackup(){
+		
+		pane = new ScrollPane();
+	}
+	
+	@Override
 	public Node showView() {
-
-		ScrollPane pane = new ScrollPane();
 
 		try {
 			VBox main = ViewLayout.getMainVBox("Backup Database", "Details");
@@ -76,8 +82,14 @@ public class DatabaseBackup {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	public PersistDatabase getPersistCodeDetails() {

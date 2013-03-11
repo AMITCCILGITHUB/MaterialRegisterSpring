@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import javax.annotation.Resource;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,7 +26,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import org.hibernate.HibernateException;
-import org.map.controls.ErrorView;
 import org.map.controls.ViewBox;
 import org.map.hibernate.ddo.HeatChartMaster;
 import org.map.hibernate.ddo.HeatChartSheets;
@@ -41,7 +41,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("ViewHeatChart")
-public class ViewHeatChart {
+public class ViewHeatChart implements AbstractPageView {
 
 	@Resource(name = "PrintHeatChart")
 	private PrintHeatChart printHeatChart;
@@ -53,6 +53,7 @@ public class ViewHeatChart {
 		pane = new TabPane();
 	}
 
+	@Override
 	public Node showView() {
 
 		Tab tab = new Tab("View Heat CHart : Search");
@@ -120,14 +121,20 @@ public class ViewHeatChart {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		} catch (MalformedURLException ex) {
 			LoggerUtil.getLogger().debug(ex);
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + ex.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	private void createViewTab(final HeatChartMaster heatChart) {

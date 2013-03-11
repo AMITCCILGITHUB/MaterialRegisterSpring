@@ -1,22 +1,25 @@
 package org.map.controls.calendar;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Control;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 /**
  * A calendar control
@@ -25,9 +28,10 @@ import java.util.Locale;
  */
 public class CalendarView extends VBox {
 
-	private static final String CSS_CALENDAR_FOOTER = "calendar-footer";
 	private static final String CSS_CALENDAR = "calendar";
-	private static final String CSS_CALENDAR_TODAY_BUTTON = "calendar-today-button";
+
+	// private static final String CSS_CALENDAR_TODAY_BUTTON =
+	// "calendar-today-button";
 
 	/**
 	 * Initializes a calendar with the default locale.
@@ -114,48 +118,8 @@ public class CalendarView extends VBox {
 		VBox.setVgrow(mainStackPane, Priority.ALWAYS);
 		mainNavigationPane = new MainNavigationPane(this);
 
-		todayButtonBox = new HBox();
-		todayButtonBox.getStyleClass().add(CSS_CALENDAR_FOOTER);
-
-		Button todayButton = new Button();
-		todayButton.textProperty().bind(todayButtonText);
-		todayButton.getStyleClass().add(CSS_CALENDAR_TODAY_BUTTON);
-		todayButton.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent actionEvent) {
-
-				Calendar calendar = calendarProperty().get();
-				calendar.setTime(new Date());
-				calendar.set(Calendar.HOUR_OF_DAY, 0);
-				calendar.set(Calendar.MINUTE, 0);
-				calendar.set(Calendar.SECOND, 0);
-				calendar.set(Calendar.MILLISECOND, 0);
-				selectedDate.set(calendar.getTime());
-			}
-		});
-		todayButtonBox.setAlignment(Pos.CENTER);
-		todayButtonBox.getChildren().add(todayButton);
-
 		getChildren().addAll(mainNavigationPane, mainStackPane);
-
-		showTodayButton.addListener(new InvalidationListener() {
-
-			@Override
-			public void invalidated(Observable observable) {
-
-				if (showTodayButton.get()) {
-					getChildren().add(todayButtonBox);
-				} else {
-					getChildren().remove(todayButtonBox);
-				}
-			}
-		});
-		showTodayButton.set(true);
-
 	}
-
-	private HBox todayButtonBox;
 
 	/**
 	 * Gets or sets the locale.
@@ -244,50 +208,6 @@ public class CalendarView extends VBox {
 	public ObjectProperty<Date> currentDateProperty() {
 
 		return currentDate;
-	}
-
-	/**
-	 * Indicates, whether the today button should be shown.
-	 * 
-	 * @return The property.
-	 */
-	public BooleanProperty showTodayButtonProperty() {
-
-		return showTodayButton;
-	}
-
-	private BooleanProperty showTodayButton = new SimpleBooleanProperty();
-
-	public boolean getShowTodayButton() {
-
-		return showTodayButton.get();
-	}
-
-	public void setShowTodayButton(boolean showTodayButton) {
-
-		this.showTodayButton.set(showTodayButton);
-	}
-
-	/**
-	 * The text of the today button
-	 * 
-	 * @return The property.
-	 */
-	public StringProperty todayButtonTextProperty() {
-
-		return todayButtonText;
-	}
-
-	private StringProperty todayButtonText = new SimpleStringProperty("Today");
-
-	public String getTodayButtonText() {
-
-		return todayButtonText.get();
-	}
-
-	public void setTodayButtonText(String todayButtonText) {
-
-		this.todayButtonText.set(todayButtonText);
 	}
 
 	/**

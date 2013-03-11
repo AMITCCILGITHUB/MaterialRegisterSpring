@@ -1,5 +1,6 @@
 package org.map.view;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -12,7 +13,6 @@ import javafx.scene.layout.VBox;
 
 import javax.annotation.Resource;
 
-import org.map.controls.ErrorView;
 import org.map.hibernate.ddo.ValidationMaster;
 import org.map.hibernate.utils.ValidationData;
 import org.map.logger.LoggerUtil;
@@ -23,7 +23,7 @@ import org.map.utils.ViewLayout;
 import org.springframework.stereotype.Repository;
 
 @Repository("ViewValidation")
-public class ViewValidation {
+public class ViewValidation implements AbstractPageView {
 
 	@Resource(name = "ValidationData")
 	private ValidationData validationData;
@@ -35,6 +35,7 @@ public class ViewValidation {
 		pane = new TabPane();
 	}
 
+	@Override
 	public Node showView() {
 
 		try {
@@ -58,8 +59,14 @@ public class ViewValidation {
 			Alert.showAlert(Context.getWindowStage(), "Error", "Error",
 					"Some error occured. Details...\n" + e.getMessage());
 
-			return new ErrorView();
+			return new ErrorView().showView();
 		}
+	}
+
+	@Override
+	public DoubleProperty opacityProperty() {
+		
+		return pane.opacityProperty();
 	}
 
 	@SuppressWarnings("unchecked")
