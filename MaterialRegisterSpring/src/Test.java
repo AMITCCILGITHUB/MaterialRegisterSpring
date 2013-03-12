@@ -2,15 +2,17 @@ import java.net.MalformedURLException;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.DepthTest;
 import javafx.scene.Scene;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBoxBuilder;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.StackPaneBuilder;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.CircleBuilder;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.RectangleBuilder;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -80,23 +82,58 @@ public class Test extends Application {
 			}
 		});
 
-		StackPane content = new StackPane();
+		FlowPane flow = new FlowPane();
+		flow.setPadding(new Insets(4, 4, 4, 4));
+		flow.setVgap(4);
+		flow.setHgap(4);
+		flow.setPrefWrapLength(32);
+		flow.setStyle("-fx-background-color: DAE6F3;");
 
-		Rectangle menuItem = RectangleBuilder
-				.create()
-				.width(32)
-				.height(32)
-				.clip(CircleBuilder.create().translateX(16).translateY(16)
-						.radius(22).build())
-				.fill(Color.TRANSPARENT)
-				.style("-fx-fill: linear-gradient(#d6d6d6, #ffffff); -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 0)")
-				.build();
+		flow.getChildren()
+				.add(StackPaneBuilder
+						.create()
+						.children(
+								RectangleBuilder
+										.create()
+										.width(32)
+										.height(32)
+										.fill(Color.TRANSPARENT)
+										.style("-fx-fill: linear-gradient(#d6d6d6, #ffffff); -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 0)")
+										.build(),
+								FileUtil.getImageAsImageView("user-add"))
+						.build());
 
-		content.getChildren().add(menuItem);
-		content.getChildren().add(FileUtil.getImageAsImageView("user_info"));
+		flow.getChildren()
+				.add(StackPaneBuilder
+						.create()
+						.children(
+								RectangleBuilder
+										.create()
+										.width(32)
+										.height(32)
+										.fill(Color.TRANSPARENT)
+										.style("-fx-fill: linear-gradient(#d6d6d6, #ffffff); -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 0)")
+										.build(),
+								FileUtil.getImageAsImageView("user-delete"))
+						.build());
+
+		flow.getChildren()
+				.add(StackPaneBuilder
+						.create()
+						.children(
+								RectangleBuilder
+										.create()
+										.width(32)
+										.height(32)
+										.fill(Color.TRANSPARENT)
+										.style("-fx-fill: linear-gradient(#d6d6d6, #ffffff); -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 0)")
+										.build(),
+								FileUtil.getImageAsImageView("user-info"))
+						.build());
 
 		root.setTop(toolBar);
-		root.setCenter(content);
+		root.setCenter(HBoxBuilder.create().prefWidth(40).children(flow)
+				.build());
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
