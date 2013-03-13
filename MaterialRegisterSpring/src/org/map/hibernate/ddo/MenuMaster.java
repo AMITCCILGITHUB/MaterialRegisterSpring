@@ -44,7 +44,7 @@ public class MenuMaster implements Serializable {
 	private SimpleStringProperty displayText;
 	private MenuMaster parentMenu;
 	private List<MenuMaster> childMenu;
-	private List<ValidationMaster> role;
+	private List<RoleMaster> role;
 	private SimpleIntegerProperty menuOrder;
 
 	private RecordStatus status;
@@ -176,11 +176,11 @@ public class MenuMaster implements Serializable {
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "MENU_ROLE_MASTER", joinColumns = { @JoinColumn(name = "MENU_CODE") }, inverseJoinColumns = { @JoinColumn(name = "CODE") })
-	public List<ValidationMaster> getRole() {
+	public List<RoleMaster> getRole() {
 		return this.role;
 	}
 
-	public void setRole(List<ValidationMaster> role) {
+	public void setRole(List<RoleMaster> role) {
 		this.role.clear();
 		this.role.addAll(role);
 	}

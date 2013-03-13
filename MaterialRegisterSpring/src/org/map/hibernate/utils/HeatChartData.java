@@ -3,15 +3,11 @@ package org.map.hibernate.utils;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -106,33 +102,43 @@ public class HeatChartData {
 				heatChartNumber, MatchMode.ANYWHERE));
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<HeatChartMaster> searchHeatChartDetailsHc(String hcNumberFrom,
 			String hcNumberTo) throws ParseException {
 
-		Session session = hibernateDao.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
-
-		Query qry = null;
+		List<HeatChartMaster> heatCharts = null;
 		if (hcNumberTo == null || hcNumberTo.trim().length() == 0) {
-			qry = session.getNamedQuery("searchHcNumberQuerySingle");
-			qry.setParameter("fromHcNumber", hcNumberFrom);
+			heatCharts = (List<HeatChartMaster>) hibernateDao
+					.list(Restrictions
+							.conjunction()
+							.add(Restrictions
+									.sqlRestriction(
+											"cast(substring(substring_index(HEATCHART_NUMBER, '-', 1), 6) as unsigned) >= cast(substring(substring_index(?, '-', 1), 6) as unsigned)",
+											hcNumberFrom, StringType.INSTANCE))
+							.add(Restrictions
+									.sqlRestriction(
+											"substring(substring_index(HEATCHART_NUMBER, '-', 1), 3,  2) = substring(substring_index(?, '-', 1), 3, 2)",
+											hcNumberFrom, StringType.INSTANCE)),
+							OrderBySqlFormula
+									.sqlFormula("cast(substring(substring_index(Chart_Number, '-', 1), 6) as unsigned) asc"));
 		} else {
-			qry = session.getNamedQuery("searchHcNumberQuery");
-			qry.setParameter("fromHcNumber", hcNumberFrom);
-			qry.setParameter("toHcNumber", hcNumberTo);
+			heatCharts = (List<HeatChartMaster>) hibernateDao
+					.list(Restrictions
+							.conjunction()
+							.add(Restrictions
+									.sqlRestriction(
+											"cast(substring(substring_index(HEATCHART_NUMBER, '-', 1), 6) as unsigned) between cast(substring(substring_index(?, '-', 1), 6) as unsigned) and cast(substring(substring_index(?, '-', 1), 6) as unsigned)",
+											new String[] { hcNumberFrom,
+													hcNumberTo }, new Type[] {
+													StringType.INSTANCE,
+													StringType.INSTANCE }))
+							.add(Restrictions
+									.sqlRestriction(
+											"substring(substring_index(HEATCHART_NUMBER, '-', 1), 3,  2) = substring(substring_index(?, '-', 1), 3, 2)",
+											hcNumberFrom, StringType.INSTANCE)),
+							OrderBySqlFormula
+									.sqlFormula("cast(substring(substring_index(Chart_Number, '-', 1), 6) as unsigned) asc"));
 		}
 
-		List<HeatChartMaster> heatCharts = qry.list();
-		Iterator<HeatChartMaster> it = (Iterator<HeatChartMaster>) heatCharts
-				.iterator();
-		while (it.hasNext()) {
-			HeatChartMaster heatChart = it.next();
-			heatChart.getHeatChartSheets().size();
-		}
-
-		transaction.commit();
-		session.close();
 		return heatCharts;
 	}
 
@@ -156,12 +162,6 @@ public class HeatChartData {
 							cal.getTime()),
 							OrderBySqlFormula
 									.sqlFormula("cast(substring(substring_index(Chart_Number, '-', 1), 6) as unsigned) asc"));
-		}
-		Iterator<HeatChartMaster> it = heatCharts.iterator();
-
-		while (it.hasNext()) {
-			HeatChartMaster heatChart = it.next();
-			heatChart.getHeatChartSheets().size();
 		}
 
 		return heatCharts;

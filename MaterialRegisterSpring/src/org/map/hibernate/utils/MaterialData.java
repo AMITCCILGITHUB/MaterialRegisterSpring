@@ -8,7 +8,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Disjunction;
@@ -31,6 +30,9 @@ public class MaterialData {
 
 	@Resource(name = "CodeData")
 	private CodeData codeData;
+
+	@Resource(name = "ValidationData")
+	private ValidationData validationData;
 
 	public HibernateDao<MaterialMaster, Integer> getHibernateDao() {
 
@@ -92,52 +94,48 @@ public class MaterialData {
 
 		material.setMaterialCode(getNextMaterialCode());
 
-		if (material.getInspectionAgency().getCode() <= 1000) {
+		if (material.getInspectionAgency().getCode() < 1000) {
 
-			new ValidationData().insertValidation(material
-					.getInspectionAgency());
+			validationData.insertValidation(material.getInspectionAgency());
 		}
 
-		if (material.getSpecification().getCode() <= 1000) {
+		if (material.getSpecification().getCode() < 1000) {
 
-			new ValidationData().insertValidation(material.getSpecification());
+			validationData.insertValidation(material.getSpecification());
 		}
 
-		if (material.getItem().getCode() <= 1000) {
+		if (material.getItem().getCode() < 1000) {
 
-			new ValidationData().insertValidation(material.getItem());
+			validationData.insertValidation(material.getItem());
 		}
 
 		int nextTestCode = getNextTestCode();
 		for (MaterialTests materialTest : material.getMaterialTests()) {
 
-			if (materialTest.getTestCode() <= 1000) {
+			if (materialTest.getTestCode() < 1000) {
 
 				materialTest.setTestCode(nextTestCode);
 				materialTest.setMaterialMaster(material);
 
-				if (materialTest.getTest().getCode() <= 1000) {
+				if (materialTest.getTest().getCode() < 1000) {
 
-					new ValidationData().insertValidation(materialTest
-							.getTest());
+					validationData.insertValidation(materialTest.getTest());
 				}
 
-				if (materialTest.getCustomer().getCode() <= 1000) {
+				if (materialTest.getCustomer().getCode() < 1000) {
 
-					new ValidationData().insertValidation(materialTest
-							.getCustomer());
+					validationData.insertValidation(materialTest.getCustomer());
 				}
 
-				if (materialTest.getLaboratory().getCode() <= 1000) {
+				if (materialTest.getLaboratory().getCode() < 1000) {
 
-					new ValidationData().insertValidation(materialTest
+					validationData.insertValidation(materialTest
 							.getLaboratory());
 				}
 
-				if (materialTest.getResult().getCode() <= 1000) {
+				if (materialTest.getResult().getCode() < 1000) {
 
-					new ValidationData().insertValidation(materialTest
-							.getResult());
+					validationData.insertValidation(materialTest.getResult());
 				}
 
 				nextTestCode++;
@@ -149,20 +147,19 @@ public class MaterialData {
 
 	public void updateMaterial(MaterialMaster material) {
 
-		if (material.getInspectionAgency().getCode() <= 1000) {
+		if (material.getInspectionAgency().getCode() < 1000) {
 
-			new ValidationData().insertValidation(material
-					.getInspectionAgency());
+			validationData.insertValidation(material.getInspectionAgency());
 		}
 
-		if (material.getSpecification().getCode() <= 1000) {
+		if (material.getSpecification().getCode() < 1000) {
 
-			new ValidationData().insertValidation(material.getSpecification());
+			validationData.insertValidation(material.getSpecification());
 		}
 
-		if (material.getItem().getCode() <= 1000) {
+		if (material.getItem().getCode() < 1000) {
 
-			new ValidationData().insertValidation(material.getItem());
+			validationData.insertValidation(material.getItem());
 		}
 
 		int nextTestCode = getNextTestCode();
@@ -173,28 +170,25 @@ public class MaterialData {
 				materialTest.setTestCode(nextTestCode);
 				materialTest.setMaterialMaster(material);
 
-				if (materialTest.getTest().getCode() <= 1000) {
+				if (materialTest.getTest().getCode() < 1000) {
 
-					new ValidationData().insertValidation(materialTest
-							.getTest());
+					validationData.insertValidation(materialTest.getTest());
 				}
 
-				if (materialTest.getCustomer().getCode() <= 1000) {
+				if (materialTest.getCustomer().getCode() < 1000) {
 
-					new ValidationData().insertValidation(materialTest
-							.getCustomer());
+					validationData.insertValidation(materialTest.getCustomer());
 				}
 
-				if (materialTest.getLaboratory().getCode() <= 1000) {
+				if (materialTest.getLaboratory().getCode() < 1000) {
 
-					new ValidationData().insertValidation(materialTest
+					validationData.insertValidation(materialTest
 							.getLaboratory());
 				}
 
-				if (materialTest.getResult().getCode() <= 1000) {
+				if (materialTest.getResult().getCode() < 1000) {
 
-					new ValidationData().insertValidation(materialTest
-							.getResult());
+					validationData.insertValidation(materialTest.getResult());
 				}
 
 				nextTestCode++;
@@ -274,32 +268,45 @@ public class MaterialData {
 	public List<MaterialMaster> searchMaterialDetailsCt(String ctNumberFrom,
 			String ctNumberTo) throws ParseException {
 
-		Session session = hibernateDao.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
-
-		Query qry = null;
+		List<MaterialMaster> materials = null;
 		if (ctNumberTo == null || ctNumberTo.trim().length() == 0) {
-			qry = session.getNamedQuery("searchCtNumberQuerySingle");
-			qry.setParameter("fromCtNumber", ctNumberFrom);
+			materials = (List<MaterialMaster>) hibernateDao
+					.list(Restrictions
+							.conjunction()
+							.add(Restrictions
+									.sqlRestriction(
+											"cast(substring(substring_index(CT_NUMBER, '-', 1), 6) as unsigned) >= cast(substring(substring_index(?, '-', 1), 6) as unsigned)",
+											ctNumberFrom, StringType.INSTANCE))
+							.add(Restrictions
+									.sqlRestriction(
+											"substring(substring_index(CT_NUMBER, '-', 1), 3,  2) = substring(substring_index(?, '-', 1), 3, 2)",
+											ctNumberFrom, StringType.INSTANCE)),
+							OrderBySqlFormula
+									.sqlFormula("cast(substring(substring_index(Chart_Number, '-', 1), 6) as unsigned) asc"));
 		} else {
-			qry = session.getNamedQuery("searchCtNumberQuery");
-			qry.setParameter("fromCtNumber", ctNumberFrom);
-			qry.setParameter("toCtNumber", ctNumberTo);
+			materials = (List<MaterialMaster>) hibernateDao
+					.list(Restrictions
+							.conjunction()
+							.add(Restrictions
+									.sqlRestriction(
+											"cast(substring(substring_index(CT_NUMBER, '-', 1), 6) as unsigned) between cast(substring(substring_index(?, '-', 1), 6) as unsigned) and cast(substring(substring_index(?, '-', 1), 6) as unsigned)",
+											new String[] { ctNumberFrom,
+													ctNumberTo }, new Type[] {
+													StringType.INSTANCE,
+													StringType.INSTANCE }))
+							.add(Restrictions
+									.sqlRestriction(
+											"substring(substring_index(CT_NUMBER, '-', 1), 3,  2) = substring(substring_index(?, '-', 1), 3, 2)",
+											ctNumberFrom, StringType.INSTANCE)),
+							OrderBySqlFormula
+									.sqlFormula("cast(substring(substring_index(Chart_Number, '-', 1), 6) as unsigned) asc"));
 		}
 
-		@SuppressWarnings("unchecked")
-		List<MaterialMaster> materials = qry.list();
-
-		transaction.commit();
-		session.close();
 		return materials;
 	}
 
 	public List<MaterialMaster> searchMaterialDetailsDt(Date fromDate,
 			Date toDate) throws ParseException {
-
-		Session session = hibernateDao.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();
 
 		List<MaterialMaster> materials = null;
 		if (toDate == null) {
@@ -320,13 +327,19 @@ public class MaterialData {
 									.sqlFormula("cast(substring(substring_index(Ct_Number, '-', 1), 6) as unsigned) asc"));
 		}
 
-		transaction.commit();
-		session.close();
 		return materials;
 	}
 
 	public void deleteMaterial(MaterialMaster material) {
 
 		hibernateDao.delete(material);
+	}
+
+	public ValidationData getValidationData() {
+		return validationData;
+	}
+
+	public void setValidationData(ValidationData validationData) {
+		this.validationData = validationData;
 	}
 }

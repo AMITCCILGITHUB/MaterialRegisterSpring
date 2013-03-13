@@ -24,8 +24,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import org.map.constants.RecordStatus;
-import org.map.constants.ValidationType;
-import org.map.hibernate.property.ValidationProperty;
+import org.map.hibernate.property.RoleProperty;
 import org.map.utils.Context;
 
 @Entity
@@ -38,7 +37,7 @@ public class UserMaster implements Serializable {
 	private SimpleStringProperty userName;
 	private SimpleStringProperty password;
 	private SimpleStringProperty confirmPassword;
-	private ValidationProperty role;
+	private RoleProperty role;
 
 	private RecordStatus status;
 	private String createdBy;
@@ -52,7 +51,7 @@ public class UserMaster implements Serializable {
 		this.userName = new SimpleStringProperty("");
 		this.password = new SimpleStringProperty("");
 		this.confirmPassword = new SimpleStringProperty("");
-		this.role = new ValidationProperty(ValidationType.ROLE);
+		this.role = new RoleProperty();
 
 		this.status = RecordStatus.TRUE;
 		this.createdBy = "SYSTEM";
@@ -65,7 +64,7 @@ public class UserMaster implements Serializable {
 		this.userName = new SimpleStringProperty(master.getUserName());
 		this.password = new SimpleStringProperty(master.getPassword());
 		this.confirmPassword = new SimpleStringProperty(master.getPassword());
-		this.role = new ValidationProperty(master.getRole());
+		this.role = new RoleProperty(master.getRole());
 
 		this.status = master.getStatus();
 		this.createdBy = master.getCreatedBy();
@@ -134,15 +133,15 @@ public class UserMaster implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ROLE")
-	public ValidationMaster getRole() {
+	public RoleMaster getRole() {
 		return this.role.get();
 	}
 
-	public void setRole(ValidationMaster role) {
+	public void setRole(RoleMaster role) {
 		this.role.set(role);
 	}
 
-	public ValidationProperty roleProperty() {
+	public RoleProperty roleProperty() {
 		return this.role;
 	}
 
@@ -180,7 +179,7 @@ public class UserMaster implements Serializable {
 		this.userName.set(um.getUserName());
 		this.password.set(um.getPassword());
 		this.confirmPassword.set(um.getConfirmPassword());
-		this.role = new ValidationProperty(um.getRole());
+		this.role = new RoleProperty(um.getRole());
 
 		this.status = um.getStatus();
 		this.createdBy = um.getCreatedBy();

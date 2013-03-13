@@ -26,10 +26,9 @@ import javafx.scene.layout.VBox;
 import javax.annotation.Resource;
 
 import org.map.constants.PersistType;
-import org.map.constants.ValidationType;
 import org.map.controls.PasswordBox;
 import org.map.controls.ViewBox;
-import org.map.controls.combobox.ValidationEditableComboBox;
+import org.map.controls.combobox.RoleEditableComboBox;
 import org.map.hibernate.ddo.UserMaster;
 import org.map.hibernate.utils.UserData;
 import org.map.logger.LoggerUtil;
@@ -46,20 +45,20 @@ import org.springframework.stereotype.Repository;
 
 @Repository("EditUser")
 public class EditUser implements AbstractPageView {
-	
-	@Resource(name="UserData")
+
+	@Resource(name = "UserData")
 	private UserData userData;
 
-	@Resource(name="PersistUserDetails")
+	@Resource(name = "PersistUserDetails")
 	private AbstractService<UserMaster, Void> abstractService;
-	
+
 	private TabPane pane;
 
-	public EditUser(){
-		
+	public EditUser() {
+
 		pane = new TabPane();
 	}
-	
+
 	@Override
 	public Node showView() {
 
@@ -106,17 +105,18 @@ public class EditUser implements AbstractPageView {
 
 							abstractService.setPersistEntity(user);
 							abstractService.setPersistType(PersistType.DELETE);
-							
+
 							abstractService.restart();
 
-							abstractService.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+							abstractService
+									.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 
-								@Override
-								public void handle(WorkerStateEvent e) {
+										@Override
+										public void handle(WorkerStateEvent e) {
 
-									mailboxData.remove(user);
-								}
-							});
+											mailboxData.remove(user);
+										}
+									});
 						}
 					};
 
@@ -147,29 +147,36 @@ public class EditUser implements AbstractPageView {
 				}
 
 			});
-			
-			Context.getWindowBottomText().textProperty()
-			.bind(Bindings.format("%s", abstractService.stateProperty()));
 
-			abstractService.stateProperty().addListener(new ChangeListener<State>() {
+			Context.getWindowBottomText()
+					.textProperty()
+					.bind(Bindings.format("%s", abstractService.stateProperty()));
 
-		@Override
-		public void changed(ObservableValue<? extends State> arg0,
-				State oldValue, State newState) {
+			abstractService.stateProperty().addListener(
+					new ChangeListener<State>() {
 
-			if (newState == Worker.State.SUCCEEDED) {
+						@Override
+						public void changed(
+								ObservableValue<? extends State> arg0,
+								State oldValue, State newState) {
 
-				Alert.showAlert(Context.getWindowStage(), "Alert", "Alert",
-						"User details saved successfully.");
+							if (newState == Worker.State.SUCCEEDED) {
 
-			} else if (newState == Worker.State.FAILED) {
+								Alert.showAlert(Context.getWindowStage(),
+										"Alert", "Alert",
+										"User details saved successfully.");
 
-				Alert.showAlert(Context.getWindowStage(), "Error", "Error",
-						"Some error cooured. Details : "
-								+ abstractService.getException().getCause());
-			}
-		}
-	});
+							} else if (newState == Worker.State.FAILED) {
+
+								Alert.showAlert(Context.getWindowStage(),
+										"Error", "Error",
+										"Some error cooured. Details : "
+												+ abstractService
+														.getException()
+														.getCause());
+							}
+						}
+					});
 
 			tab.setContent(ControlsUtil.makeScrollable(main));
 			tab.setClosable(false);
@@ -189,7 +196,7 @@ public class EditUser implements AbstractPageView {
 
 	@Override
 	public DoubleProperty opacityProperty() {
-		
+
 		return pane.opacityProperty();
 	}
 
@@ -232,8 +239,8 @@ public class EditUser implements AbstractPageView {
 		Label roleLabel = new Label("Role");
 		roleLabel.setPrefWidth(ViewLayout.LABEL_WIDTH);
 
-		final ValidationEditableComboBox roleChoiceBox = new ValidationEditableComboBox(
-				ValidationType.ROLE, "Role", user.roleProperty());
+		final RoleEditableComboBox roleChoiceBox = new RoleEditableComboBox(
+				"Role", user.roleProperty());
 
 		form.add(userNameLabel, 0, 0);
 		form.add(userNameTextBox, 1, 0);
@@ -277,12 +284,13 @@ public class EditUser implements AbstractPageView {
 	public void setUserData(UserData userData) {
 		this.userData = userData;
 	}
-	
+
 	public AbstractService<UserMaster, Void> getPersistUserDetails() {
 		return abstractService;
 	}
 
-	public void setPersistUserDetails(AbstractService<UserMaster, Void> abstractService) {
+	public void setPersistUserDetails(
+			AbstractService<UserMaster, Void> abstractService) {
 		this.abstractService = abstractService;
 	}
 }

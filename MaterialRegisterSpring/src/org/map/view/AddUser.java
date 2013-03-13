@@ -20,10 +20,9 @@ import javafx.scene.layout.VBox;
 import javax.annotation.Resource;
 
 import org.map.constants.PersistType;
-import org.map.constants.ValidationType;
 import org.map.controls.PasswordBox;
 import org.map.controls.TextBox;
-import org.map.controls.combobox.ValidationComboBox;
+import org.map.controls.combobox.RoleComboBox;
 import org.map.hibernate.ddo.UserMaster;
 import org.map.hibernate.utils.UserData;
 import org.map.logger.LoggerUtil;
@@ -80,8 +79,8 @@ public class AddUser implements AbstractPageView {
 
 			Label roleLabel = new Label("Role");
 			roleLabel.setPrefWidth(ViewLayout.LABEL_WIDTH);
-			final ValidationComboBox roleChoiceBox = new ValidationComboBox(
-					ValidationType.ROLE, "Role", user.roleProperty());
+			final RoleComboBox roleChoiceBox = new RoleComboBox("Role",
+					user.roleProperty());
 
 			form.add(userNameLabel, 0, 0);
 			form.add(userNameTextBox, 1, 0);
@@ -183,7 +182,7 @@ public class AddUser implements AbstractPageView {
 
 	@Override
 	public DoubleProperty opacityProperty() {
-		
+
 		return pane.opacityProperty();
 	}
 

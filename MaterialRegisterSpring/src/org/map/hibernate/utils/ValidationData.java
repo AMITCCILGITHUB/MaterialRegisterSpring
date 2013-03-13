@@ -27,11 +27,6 @@ public class ValidationData {
 		this.hibernateDao = hibernateDao;
 	}
 
-	public List<ValidationMaster> getRoleList() {
-
-		return (List<ValidationMaster>) hibernateDao.list();
-	}
-
 	public List<ValidationMaster> getValidationList(String name) {
 
 		return (List<ValidationMaster>) hibernateDao.list(Restrictions.like(
