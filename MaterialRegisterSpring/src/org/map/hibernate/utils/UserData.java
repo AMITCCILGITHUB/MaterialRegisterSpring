@@ -18,7 +18,7 @@ public class UserData {
 
 	@Resource(name = "UserDao")
 	private HibernateDao<UserMaster, Integer> hibernateDao;
-	
+
 	public HibernateDao<UserMaster, Integer> getHibernateDao() {
 		return hibernateDao;
 	}
@@ -26,15 +26,15 @@ public class UserData {
 	public void setHibernateDao(HibernateDao<UserMaster, Integer> hibernateDao) {
 		this.hibernateDao = hibernateDao;
 	}
-	
-	public int getNextUserCode() throws HibernateException {
+
+	public Integer getNextUserCode() throws HibernateException {
 
 		return hibernateDao.nextCode(Projections.max("userCode"));
 	}
-	
+
 	public boolean validateUser(UserMaster user) {
 
-		int rowCount = 0;
+		Integer rowCount = 0;
 		try {
 			rowCount = hibernateDao
 					.list(Restrictions
@@ -53,11 +53,11 @@ public class UserData {
 		return hibernateDao.get(Restrictions.eq("userName", userName));
 	}
 
-	public UserMaster getUserDetails(int userCode) {
+	public UserMaster getUserDetails(Integer userCode) {
 
 		return hibernateDao.get(userCode);
 	}
-	
+
 	public List<UserMaster> getUserList() {
 
 		return (List<UserMaster>) hibernateDao.list();
@@ -72,7 +72,7 @@ public class UserData {
 
 		hibernateDao.update(user);
 	}
-	
+
 	public void deleteUser(UserMaster user) {
 
 		hibernateDao.delete(user);

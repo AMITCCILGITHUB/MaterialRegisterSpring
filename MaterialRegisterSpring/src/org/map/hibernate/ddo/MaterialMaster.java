@@ -16,19 +16,19 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.map.constants.RecordStatus;
 import org.map.constants.ValidationType;
 import org.map.hibernate.property.ValidationProperty;
@@ -100,19 +100,15 @@ public class MaterialMaster implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator = "MATERIAL_CODE_GENERATOR")
-	@GenericGenerator(name = "MATERIAL_CODE_GENERATOR", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "MATERIAL_CODE_SEQUENCE"),
-			@Parameter(name = "optimizer", value = "hilo"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "1") })
+	@TableGenerator(name = "MATERIAL_CODE_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "MATERIAL_CODE", initialValue = 1000, allocationSize = 100)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "MATERIAL_CODE_GENERATOR")
 	@Column(name = "MATERIAL_CODE", unique = true, nullable = false, length = 11)
-	public int getMaterialCode() {
+	public Integer getMaterialCode() {
 
 		return this.materialCode.get();
 	}
 
-	public void setMaterialCode(int materialCode) {
+	public void setMaterialCode(Integer materialCode) {
 
 		this.materialCode.set(materialCode);
 	}
@@ -189,12 +185,12 @@ public class MaterialMaster implements Serializable {
 	}
 
 	@Column(name = "QUANTITY")
-	public int getQuantity() {
+	public Integer getQuantity() {
 
 		return this.quantity.get();
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 
 		this.quantity.set(quantity);
 	}

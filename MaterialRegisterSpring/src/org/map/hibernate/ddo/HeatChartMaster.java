@@ -15,16 +15,16 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.map.constants.RecordStatus;
 import org.map.utils.Context;
 
@@ -88,18 +88,14 @@ public class HeatChartMaster implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator = "HEATCHART_CODE_GENERATOR")
-	@GenericGenerator(name = "HEATCHART_CODE_GENERATOR", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "HEATCHART_CODE_SEQUENCE"),
-			@Parameter(name = "optimizer", value = "hilo"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "1") })
+	@TableGenerator(name = "HEATCHART_CODE_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "HEATCHART_CODE", initialValue = 1000, allocationSize = 100)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "HEATCHART_CODE_GENERATOR")
 	@Column(name = "HEATCHART_CODE", unique = true, nullable = false, length = 11)
-	public int getHeatChartCode() {
+	public Integer getHeatChartCode() {
 		return this.heatChartCode.get();
 	}
 
-	public void setHeatChartCode(int heatChartCode) {
+	public void setHeatChartCode(Integer heatChartCode) {
 		this.heatChartCode.set(heatChartCode);
 	}
 

@@ -16,7 +16,7 @@ public class ViewIntegerBox extends Region {
 		textBox.setValue(1);
 	}
 
-	public ViewIntegerBox(int value) {
+	public ViewIntegerBox(Integer value) {
 
 		initComponent();
 		textBox.setValue(value);
@@ -28,7 +28,7 @@ public class ViewIntegerBox extends Region {
 		textBox.valueProperty().bindBidirectional(propertyValue);
 	}
 
-	public ViewIntegerBox(int value, IntegerProperty propertyValue) {
+	public ViewIntegerBox(Integer value, IntegerProperty propertyValue) {
 
 		initComponent();
 		textBox.setValue(value);
@@ -61,12 +61,12 @@ public class ViewIntegerBox extends Region {
 		getChildren().addAll(textBox);
 	}
 
-	public void setValue(int value) {
+	public void setValue(Integer value) {
 
 		textBox.setValue(value);
 	}
 
-	public int getValue() {
+	public Integer getValue() {
 
 		return textBox.getValue();
 	}

@@ -21,8 +21,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -42,8 +40,6 @@ public class MenuMaster implements Serializable {
 	private SimpleIntegerProperty menuCode;
 	private SimpleStringProperty menuName;
 	private SimpleStringProperty displayText;
-	private MenuMaster parentMenu;
-	private List<MenuMaster> childMenu;
 	private List<RoleMaster> role;
 	private SimpleIntegerProperty menuOrder;
 
@@ -56,7 +52,6 @@ public class MenuMaster implements Serializable {
 		this.menuCode = new SimpleIntegerProperty(0);
 		this.menuName = new SimpleStringProperty("");
 		this.displayText = new SimpleStringProperty("");
-		this.childMenu = new ArrayList<>();
 		this.role = new ArrayList<>();
 		this.menuOrder = new SimpleIntegerProperty(0);
 
@@ -70,7 +65,6 @@ public class MenuMaster implements Serializable {
 		this.menuCode = new SimpleIntegerProperty(master.getMenuCode());
 		this.menuName = new SimpleStringProperty(master.getMenuName());
 		this.displayText = new SimpleStringProperty(master.getDisplayText());
-		this.childMenu = new ArrayList<>(master.getChildMenu());
 		this.role = new ArrayList<>(master.getRole());
 		this.menuOrder = new SimpleIntegerProperty(master.getMenuOrder());
 
@@ -80,26 +74,8 @@ public class MenuMaster implements Serializable {
 	}
 
 	@Id
-	@TableGenerator(name = "MENU_CODE_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "MENU_CODE", initialValue = 10000, allocationSize = 100)
+	@TableGenerator(name = "MENU_CODE_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "MENU_CODE", initialValue = 1000, allocationSize = 100)
 	@GeneratedValue(strategy = GenerationType.TABLE, generator = "MENU_CODE_GENERATOR")
-	/*
-	 * @GeneratedValue(generator = "MENU_CODE_GENERATOR")
-	 * 
-	 * @GenericGenerator(name = "MENU_CODE_GENERATOR", strategy =
-	 * "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-	 * 
-	 * @Parameter(name = "sequence_name", value = "MENU_CODE_SEQUENCE"),
-	 * 
-	 * @Parameter(name = "optimizer", value = "hilo"),
-	 * 
-	 * @Parameter(name = "initial_value", value = "1000"),
-	 * 
-	 * @Parameter(name = "increment_size", value = "1"),
-	 * 
-	 * @Parameter(name = "table", value = "MENU_MASTER"),
-	 * 
-	 * @Parameter(name = "column", value = "MENU_CODE") })
-	 */
 	@Column(name = "MENU_CODE", unique = true, nullable = false, length = 11)
 	public Integer getMenuCode() {
 		return this.menuCode.get();
@@ -137,27 +113,6 @@ public class MenuMaster implements Serializable {
 
 	public SimpleStringProperty displayTextProperty() {
 		return displayText;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PARENT_MENU")
-	public MenuMaster getParentMenu() {
-		return this.parentMenu;
-	}
-
-	public void setParentMenu(MenuMaster parentMenu) {
-		this.parentMenu = parentMenu;
-	}
-
-	@Fetch(FetchMode.SUBSELECT)
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parentMenu")
-	public List<MenuMaster> getChildMenu() {
-		return this.childMenu;
-	}
-
-	public void setChildMenu(List<MenuMaster> childMenu) {
-		this.childMenu.clear();
-		this.childMenu.addAll(childMenu);
 	}
 
 	@Column(name = "MENU_ORDER")
@@ -219,8 +174,6 @@ public class MenuMaster implements Serializable {
 		this.menuCode.set(um.getMenuCode());
 		this.menuName.set(um.getMenuName());
 		this.displayText.set(um.getDisplayText());
-		this.childMenu.clear();
-		this.childMenu.addAll(um.getChildMenu());
 		this.menuOrder.set(um.getMenuOrder());
 
 		this.status = um.getStatus();
@@ -233,7 +186,6 @@ public class MenuMaster implements Serializable {
 		this.menuCode.set(0);
 		this.menuName.set("");
 		this.displayText.set("");
-		this.childMenu.clear();
 		this.menuOrder.set(0);
 
 		this.status = RecordStatus.TRUE;

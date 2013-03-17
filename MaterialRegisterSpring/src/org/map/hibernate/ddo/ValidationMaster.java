@@ -12,13 +12,13 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.map.constants.RecordStatus;
 import org.map.constants.ValidationType;
 import org.map.utils.Context;
@@ -80,18 +80,14 @@ public class ValidationMaster implements Serializable,
 	}
 
 	@Id
-	@GeneratedValue(generator = "VALIDATION_CODE_GENERATOR")
-	@GenericGenerator(name = "VALIDATION_CODE_GENERATOR", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "VALIDATION_CODE_SEQUENCE"),
-			@Parameter(name = "optimizer", value = "hilo"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "1") })
-	@Column(name = "CODE", unique = true, nullable = false, length = 11)
-	public int getCode() {
+	@TableGenerator(name = "VALIDATION_CODE_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "VALIDATION_CODE", initialValue = 1000, allocationSize = 100)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "VALIDATION_CODE_GENERATOR")
+	@Column(name = "VALIDATION_CODE", unique = true, nullable = false, length = 11)
+	public Integer getCode() {
 		return code.get();
 	}
 
-	public void setCode(int Code) {
+	public void setCode(Integer Code) {
 		this.code.set(Code);
 	}
 

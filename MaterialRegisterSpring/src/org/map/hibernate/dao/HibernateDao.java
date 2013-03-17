@@ -30,7 +30,7 @@ public interface HibernateDao<T, ID extends Serializable> {
 
 	public Collection<String> list(Projection projection, Order order);
 
-	public int nextCode(Projection projection);
+	public Integer nextCode(Projection projection);
 
 	public T save(T o);
 

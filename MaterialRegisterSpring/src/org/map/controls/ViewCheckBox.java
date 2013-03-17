@@ -1,11 +1,14 @@
 package org.map.controls;
 
-import org.map.utils.ViewLayout;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckBoxBuilder;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+
+import org.map.utils.ViewLayout;
 
 public class ViewCheckBox extends Region {
 
@@ -22,7 +25,7 @@ public class ViewCheckBox extends Region {
 		checkBox.setSelected(false);
 	}
 
-	public ViewCheckBox(String labelText, int defValue) {
+	public ViewCheckBox(String labelText, Integer defValue) {
 
 		initComponent(labelText);
 		checkBox.setText((defValue == 0) ? indeterminateTextValue
@@ -37,7 +40,7 @@ public class ViewCheckBox extends Region {
 		checkBox.setText(labelText);
 	}
 
-	public ViewCheckBox(String labelText, int defValue,
+	public ViewCheckBox(String labelText, Integer defValue,
 			final SimpleIntegerProperty value, boolean bidirectionnal) {
 
 		initComponent(labelText);
@@ -66,7 +69,8 @@ public class ViewCheckBox extends Region {
 					new ChangeListener<Boolean>() {
 
 						@Override
-						public void changed(ObservableValue<? extends Boolean> ov,
+						public void changed(
+								ObservableValue<? extends Boolean> ov,
 								Boolean old_val, Boolean new_val) {
 
 							value.set(checkBox.isSelected() ? 1 : (checkBox
@@ -126,13 +130,13 @@ public class ViewCheckBox extends Region {
 		label.setText(textVal);
 	}
 
-	public int getValue() {
+	public Integer getValue() {
 
 		return (checkBox.isSelected() ? 1 : (checkBox.isIndeterminate() ? 0
 				: -1));
 	}
 
-	public void setValue(int val) {
+	public void setValue(Integer val) {
 
 		checkBox.setText((val == 0) ? indeterminateTextValue
 				: (val == 1) ? selectedTextValue : deselectedTextValue);

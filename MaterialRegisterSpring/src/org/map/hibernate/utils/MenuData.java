@@ -32,7 +32,7 @@ public class MenuData {
 		return (List<MenuMaster>) hibernateDao.list();
 	}
 
-	public List<MenuMaster> getMenus(int roleCode) {
+	public List<MenuMaster> getMenus(Integer roleCode) {
 
 		return (List<MenuMaster>) hibernateDao.list(Restrictions.eq(
 				"role.code", roleCode));

@@ -46,7 +46,7 @@ public class ValidationData {
 				Projections.distinct(Projections.property("name")));
 	}
 
-	public int getNextValidationNumber() throws HibernateException {
+	public Integer getNextValidationNumber() throws HibernateException {
 
 		return hibernateDao.nextCode(Projections.max("code"));
 	}

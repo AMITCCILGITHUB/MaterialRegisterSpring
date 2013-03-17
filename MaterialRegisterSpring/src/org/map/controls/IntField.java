@@ -1,23 +1,25 @@
 package org.map.controls;
 
-import org.map.utils.ViewLayout;
-
-import javafx.beans.property.*;
-import javafx.beans.value.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
-import javafx.scene.control.*;
-import javafx.scene.input.*;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+
+import org.map.utils.ViewLayout;
 
 public class IntField extends TextField {
 
 	final private IntegerProperty value;
 
-	public int getValue() {
+	public Integer getValue() {
 
 		return value.getValue();
 	}
 
-	public void setValue(int newValue) {
+	public void setValue(Integer newValue) {
 
 		value.setValue(newValue);
 	}
@@ -27,11 +29,11 @@ public class IntField extends TextField {
 		return value;
 	}
 
-	public IntField(int initialValue) {
+	public IntField(Integer initialValue) {
 		setMinSize(ViewLayout.REGION_WIDTH, ViewLayout.REGION_HEIGHT);
 		setPrefSize(ViewLayout.REGION_WIDTH, ViewLayout.REGION_HEIGHT);
 		setMaxSize(ViewLayout.REGION_WIDTH, ViewLayout.REGION_HEIGHT);
-		
+
 		value = new SimpleIntegerProperty(initialValue);
 		setText(initialValue + "");
 

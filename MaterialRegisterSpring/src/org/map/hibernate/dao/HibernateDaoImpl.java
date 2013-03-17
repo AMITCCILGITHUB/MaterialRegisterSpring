@@ -137,14 +137,14 @@ public abstract class HibernateDaoImpl<T, ID extends Serializable> implements
 
 	@Transactional(readOnly = true)
 	@Override
-	public int nextCode(Projection projection) {
+	public Integer nextCode(Projection projection) {
 
 		Object result = getSessionFactory().getCurrentSession()
 				.createCriteria(type).setProjection(projection).uniqueResult();
 
-		int codeNumber = 1001;
+		Integer codeNumber = 1001;
 		if (result != null)
-			codeNumber = (int) result + 1;
+			codeNumber = (Integer) result + 1;
 
 		return codeNumber;
 	}

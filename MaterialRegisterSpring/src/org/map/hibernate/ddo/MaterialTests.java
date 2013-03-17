@@ -13,16 +13,16 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.map.constants.RecordStatus;
 import org.map.constants.ValidationType;
 import org.map.hibernate.property.ValidationProperty;
@@ -99,19 +99,15 @@ public class MaterialTests implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator = "MATERIALTEST_CODE_GENERATOR")
-	@GenericGenerator(name = "MATERIALTEST_CODE_GENERATOR", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "MATERIALTEST_CODE_SEQUENCE"),
-			@Parameter(name = "optimizer", value = "hilo"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "1") })
+	@TableGenerator(name = "MATERIALTEST_CODE_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "MATERIALTEST_CODE", initialValue = 1000, allocationSize = 100)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "MATERIALTEST_CODE_GENERATOR")
 	@Column(name = "MATERIALTEST_CODE", unique = true, nullable = false, length = 11)
-	public int getTestCode() {
+	public Integer getTestCode() {
 
 		return this.testCode.get();
 	}
 
-	public void setTestCode(int materialCode) {
+	public void setTestCode(Integer materialCode) {
 
 		this.testCode.set(materialCode);
 	}

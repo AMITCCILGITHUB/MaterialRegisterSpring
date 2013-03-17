@@ -45,6 +45,7 @@ import javax.annotation.Resource;
 
 import org.map.controls.SearchBox;
 import org.map.controls.WindowButtons;
+import org.map.hibernate.ddo.MenuMaster;
 import org.map.hibernate.utils.MenuData;
 import org.map.service.LoadPageView;
 import org.map.utils.Context;
@@ -165,6 +166,13 @@ public class Home {
 			}
 		});
 
+		System.out.println("Menu Size : "
+				+ Context.getLoggedUser().getRole().getMenu().size());
+		for (MenuMaster menu : Context.getLoggedUser().getRole().getMenu()) {
+
+			System.out.println(menu.getDisplayText());
+		}
+
 		final TreeItem<String> tiRoot = new TreeItem<String>();
 
 		if (Context.getLoggedUser().getRole().getName()
@@ -187,7 +195,7 @@ public class Home {
 			tiRoot.getChildren().add(new TreeItem<>("Edit Heat Chart"));
 
 			tiRoot.getChildren().add(new TreeItem<>("Settings"));
-			
+
 			tiRoot.getChildren().add(new TreeItem<>("Backup"));
 		}
 		if (Context.getLoggedUser().getRole().getName()
@@ -264,7 +272,7 @@ public class Home {
 		ToolBar pageTreeToolBar = new ToolBar();
 		pageTreeToolBar.setId("page-tree-toolbar");
 		pageTreeToolBar.setMinHeight(29);
-		pageToolBar.setMaxSize(Double.MAX_VALUE, Control.USE_PREF_SIZE);
+		pageTreeToolBar.setMaxSize(Double.MAX_VALUE, Control.USE_PREF_SIZE);
 
 		BorderPane leftSplitPane = new BorderPane();
 		leftSplitPane.setTop(pageTreeToolBar);

@@ -13,16 +13,16 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.map.constants.RecordStatus;
 import org.map.utils.Context;
 
@@ -94,18 +94,14 @@ public class HeatChartSheets implements Serializable,
 	}
 
 	@Id
-	@GeneratedValue(generator = "HEATCHARTSHEET_CODE_GENERATOR")
-	@GenericGenerator(name = "HEATCHARTSHEET_CODE_GENERATOR", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "HEATCHARTSHEET_CODE_SEQUENCE"),
-			@Parameter(name = "optimizer", value = "hilo"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "1") })
+	@TableGenerator(name = "HEATCHARTSHEET_CODE_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "HEATCHARTSHEET_CODE", initialValue = 1000, allocationSize = 100)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "HEATCHARTSHEET_CODE_GENERATOR")
 	@Column(name = "HEATCHARTSHEET_CODE", unique = true, nullable = false, length = 11)
-	public int getHeatChartSheetCode() {
+	public Integer getHeatChartSheetCode() {
 		return this.heatChartSheetCode.get();
 	}
 
-	public void setHeatChartSheetCode(int heatChartSheetCode) {
+	public void setHeatChartSheetCode(Integer heatChartSheetCode) {
 
 		this.heatChartSheetCode.set(heatChartSheetCode);
 	}
@@ -115,11 +111,11 @@ public class HeatChartSheets implements Serializable,
 	}
 
 	@Column(name = "HEATCHART_SHEET_NUMBER")
-	public int getSheetNumber() {
+	public Integer getSheetNumber() {
 		return this.sheetNumber.get();
 	}
 
-	public void setSheetNumber(int sheetNumber) {
+	public void setSheetNumber(Integer sheetNumber) {
 		this.sheetNumber.set(sheetNumber);
 	}
 
@@ -128,7 +124,7 @@ public class HeatChartSheets implements Serializable,
 	}
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="MATERIAL_CODE")
+	@JoinColumn(name = "MATERIAL_CODE")
 	public MaterialMaster getMaterialmaster() {
 		return this.materialmaster;
 	}
@@ -138,7 +134,7 @@ public class HeatChartSheets implements Serializable,
 	}
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="TEST_CODE")
+	@JoinColumn(name = "TEST_CODE")
 	public MaterialTests getMaterialtests() {
 		return materialtests;
 	}
@@ -158,11 +154,11 @@ public class HeatChartSheets implements Serializable,
 	}
 
 	@Column(name = "SEQUENCE_NUMBER")
-	public int getSequenceNumber() {
+	public Integer getSequenceNumber() {
 		return this.sequenceNumber.get();
 	}
 
-	public void setSequenceNumber(int sequenceNumber) {
+	public void setSequenceNumber(Integer sequenceNumber) {
 		this.sequenceNumber.set(sequenceNumber);
 	}
 

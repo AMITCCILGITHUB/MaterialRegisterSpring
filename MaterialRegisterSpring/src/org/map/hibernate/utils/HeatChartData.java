@@ -51,7 +51,7 @@ public class HeatChartData {
 
 		heatChart.setHeatChartCode(getNextHeatChartCode());
 
-		int nextSheetCode = getNextHeatChartSheetCode();
+		Integer nextSheetCode = getNextHeatChartSheetCode();
 		for (HeatChartSheets sheet : heatChart.getHeatChartSheets()) {
 
 			if (sheet.getHeatChartSheetCode() == 0) {
@@ -80,7 +80,7 @@ public class HeatChartData {
 		String currentYear = codeData.getCode("Default_Year").getCodeValue()
 				.substring(2);
 
-		int nextNumber = Integer
+		Integer nextNumber = Integer
 				.parseInt(hibernateDao.get(
 						Restrictions
 								.sqlRestriction(
@@ -167,12 +167,12 @@ public class HeatChartData {
 		return heatCharts;
 	}
 
-	public int getNextHeatChartCode() {
+	public Integer getNextHeatChartCode() {
 
 		return hibernateDao.nextCode(Projections.max("heatChartCode"));
 	}
 
-	public int getNextHeatChartSheetCode() {
+	public Integer getNextHeatChartSheetCode() {
 
 		return hibernateDao.nextCode(Projections.max("heatChartSheetCode"));
 	}

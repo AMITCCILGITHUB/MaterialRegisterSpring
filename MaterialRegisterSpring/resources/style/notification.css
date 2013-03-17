@@ -1,0 +1,37 @@
+.popUpHeader {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/notification header.png");
+}
+
+.close-button {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/notification close.png");
+}
+
+.close-button:hover {
+	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 8, 0.5,
+		0, 0 );
+}
+
+.popUpBody {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/notification body.png");
+	-fx-border-image-repeat: stretch;
+}
+
+.popUpFooter {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/notification footer.png");
+}
+
+.popUpSeperator {
+	-fx-background-color: null;
+	-fx-background-image: url("../images/notification seperator.png");
+}
+
+.menu-text {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}

@@ -6,16 +6,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.map.hibernate.ddo.MaterialMaster;
-import org.map.hibernate.ddo.MaterialTests;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import org.map.hibernate.ddo.MaterialMaster;
+import org.map.hibernate.ddo.MaterialTests;
 
 public class MaterialRegister implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private SimpleIntegerProperty materialCode;
 	private SimpleStringProperty ctNumber;
 	private SimpleStringProperty inspectionAgency;
@@ -74,10 +74,13 @@ public class MaterialRegister implements Serializable {
 
 	public MaterialRegister(MaterialRegister material) {
 
-		this.materialCode = new SimpleIntegerProperty(material.getMaterialCode());
+		this.materialCode = new SimpleIntegerProperty(
+				material.getMaterialCode());
 		this.ctNumber = new SimpleStringProperty(material.getCtNumber());
-		this.inspectionAgency = new SimpleStringProperty(material.getInspectionAgency());
-		this.specification = new SimpleStringProperty(material.getSpecification());
+		this.inspectionAgency = new SimpleStringProperty(
+				material.getInspectionAgency());
+		this.specification = new SimpleStringProperty(
+				material.getSpecification());
 		this.item = new SimpleStringProperty(material.getItem());
 		this.size = new SimpleStringProperty(material.getSize());
 		this.quantity = new SimpleIntegerProperty(material.getQuantity());
@@ -95,18 +98,20 @@ public class MaterialRegister implements Serializable {
 		this.result = new SimpleStringProperty(material.getResult());
 		this.remarks = new SimpleStringProperty(material.getRemarks());
 		this.witnessedBy = new SimpleStringProperty(material.getWitnessedBy());
-		this.failureReason = new SimpleStringProperty(material.getFailureReason());
+		this.failureReason = new SimpleStringProperty(
+				material.getFailureReason());
 
 		this.status = material.getStatus();
 		this.createdBy = material.getCreatedBy();
 		this.createdDate = material.getCreatedDate();
-	}	
-	public int getMaterialCode() {
+	}
+
+	public Integer getMaterialCode() {
 
 		return this.materialCode.get();
 	}
 
-	public void setMaterialCode(int materialCode) {
+	public void setMaterialCode(Integer materialCode) {
 
 		this.materialCode.set(materialCode);
 	}
@@ -176,12 +181,12 @@ public class MaterialRegister implements Serializable {
 		return this.size;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 
 		return this.quantity.get();
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 
 		this.quantity.set(quantity);
 	}
@@ -236,12 +241,12 @@ public class MaterialRegister implements Serializable {
 		return this.specification;
 	}
 
-	public int getTestCode() {
+	public Integer getTestCode() {
 
 		return this.testCode.get();
 	}
 
-	public void setTestCode(int materialCode) {
+	public void setTestCode(Integer materialCode) {
 
 		this.testCode.set(materialCode);
 	}
@@ -446,7 +451,8 @@ public class MaterialRegister implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	public static List<MaterialRegister> getMaterialRegisterList(MaterialMaster master) {
+	public static List<MaterialRegister> getMaterialRegisterList(
+			MaterialMaster master) {
 		List<MaterialRegister> registerList = new ArrayList<>();
 
 		for (MaterialTests test : master.getMaterialTests()) {

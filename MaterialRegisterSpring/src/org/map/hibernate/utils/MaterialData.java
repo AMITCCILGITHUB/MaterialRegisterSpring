@@ -60,7 +60,7 @@ public class MaterialData {
 		return hibernateDao.get(Restrictions.eq("ctNumber", ctNumber));
 	}
 
-	public int getNextMaterialCode() throws HibernateException {
+	public Integer getNextMaterialCode() throws HibernateException {
 
 		return hibernateDao.nextCode(Projections.max("materialCode"));
 	}
@@ -70,7 +70,7 @@ public class MaterialData {
 		String currentYear = codeData.getCode("Default_Year").getCodeValue()
 				.substring(2);
 
-		int nextNumber = Integer
+		Integer nextNumber = Integer
 				.parseInt(hibernateDao.get(
 						Restrictions
 								.sqlRestriction(
@@ -85,7 +85,7 @@ public class MaterialData {
 		return "MP" + currentYear + "/" + nextNumber;
 	}
 
-	public int getNextTestCode() {
+	public Integer getNextTestCode() {
 
 		return hibernateDao.nextCode(Projections.max("testCode"));
 	}
@@ -109,7 +109,7 @@ public class MaterialData {
 			validationData.insertValidation(material.getItem());
 		}
 
-		int nextTestCode = getNextTestCode();
+		Integer nextTestCode = getNextTestCode();
 		for (MaterialTests materialTest : material.getMaterialTests()) {
 
 			if (materialTest.getTestCode() < 1000) {
@@ -162,7 +162,7 @@ public class MaterialData {
 			validationData.insertValidation(material.getItem());
 		}
 
-		int nextTestCode = getNextTestCode();
+		Integer nextTestCode = getNextTestCode();
 		for (MaterialTests materialTest : material.getMaterialTests()) {
 
 			if (materialTest.getTestCode() == 0) {

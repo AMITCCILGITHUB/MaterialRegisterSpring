@@ -50,7 +50,7 @@ public class RoleData {
 				Projections.distinct(Projections.property("name")));
 	}
 
-	public int getNextRoleNumber() throws HibernateException {
+	public Integer getNextRoleNumber() throws HibernateException {
 
 		return hibernateDao.nextCode(Projections.max("code"));
 	}

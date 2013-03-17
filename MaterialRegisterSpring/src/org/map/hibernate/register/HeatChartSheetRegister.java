@@ -6,10 +6,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.map.hibernate.ddo.HeatChartSheets;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import org.map.hibernate.ddo.HeatChartSheets;
 
 public class HeatChartSheetRegister implements Serializable,
 		Comparable<HeatChartSheetRegister> {
@@ -88,12 +88,12 @@ public class HeatChartSheetRegister implements Serializable,
 		this.createdDate = hSheets.getCreatedDate();
 	}
 
-	public int getHeatChartSheetCode() {
+	public Integer getHeatChartSheetCode() {
 
 		return this.heatChartSheetCode.get();
 	}
 
-	public void setHeatChartSheetCode(int heatChartSheetCode) {
+	public void setHeatChartSheetCode(Integer heatChartSheetCode) {
 
 		this.heatChartSheetCode.set(heatChartSheetCode);
 	}
@@ -103,12 +103,12 @@ public class HeatChartSheetRegister implements Serializable,
 		return this.heatChartSheetCode;
 	}
 
-	public int getSheetNumber() {
+	public Integer getSheetNumber() {
 
 		return this.sheetNumber.get();
 	}
 
-	public void setSheetNumber(int sheetNumber) {
+	public void setSheetNumber(Integer sheetNumber) {
 
 		this.sheetNumber.set(sheetNumber);
 	}
@@ -118,12 +118,12 @@ public class HeatChartSheetRegister implements Serializable,
 		return this.sheetNumber;
 	}
 
-	public int getSequenceNumber() {
+	public Integer getSequenceNumber() {
 
 		return this.sequenceNumber.get();
 	}
 
-	public void setSequenceNumber(int sequenceNumber) {
+	public void setSequenceNumber(Integer sequenceNumber) {
 
 		this.sequenceNumber.set(sequenceNumber);
 	}
@@ -388,7 +388,8 @@ public class HeatChartSheetRegister implements Serializable,
 				.getReportNumber());
 		register.setReportDate(heatChartSheet.getMaterialtests()
 				.getReportDate());
-		register.setLaboratory(heatChartSheet.getMaterialtests().getLaboratory().getName());
+		register.setLaboratory(heatChartSheet.getMaterialtests()
+				.getLaboratory().getName());
 
 		return register;
 	}

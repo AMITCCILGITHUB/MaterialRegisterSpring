@@ -5,11 +5,16 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.DepthTest;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.ToolBar;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.HBoxBuilder;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.StackPaneBuilder;
 import javafx.scene.paint.Color;
@@ -19,11 +24,14 @@ import javafx.stage.StageStyle;
 
 import org.map.controls.WindowButtons;
 import org.map.utils.FileUtil;
+import org.map.utils.Notification;
 
 public class Test extends Application {
 
 	private double mouseDragOffsetX = 0;
 	private double mouseDragOffsetY = 0;
+
+	private Notification notification;
 
 	@Override
 	public void start(final Stage primaryStage) throws MalformedURLException {
@@ -43,7 +51,8 @@ public class Test extends Application {
 		scene.getStylesheets().addAll(FileUtil.getStyleAsUrl("style"),
 				FileUtil.getStyleAsUrl("calendar"),
 				FileUtil.getStyleAsUrl("controls"),
-				FileUtil.getStyleAsUrl("menu"));
+				FileUtil.getStyleAsUrl("menu"),
+				FileUtil.getStyleAsUrl("notification"));
 
 		ToolBar toolBar = new ToolBar();
 		toolBar.setId("mainToolBar");
@@ -81,6 +90,32 @@ public class Test extends Application {
 				}
 			}
 		});
+
+		ToolBar pageToolBar = new ToolBar();
+		pageToolBar.setId("page-toolbar");
+		pageToolBar.setMinHeight(29);
+		pageToolBar.setMaxSize(Double.MAX_VALUE, Control.USE_PREF_SIZE);
+
+		final Button logoutButton = new Button();
+		logoutButton.setPrefSize(24, 24);
+		logoutButton.getStyleClass().add("logout-button");
+		Region spacer3 = new Region();
+		HBox.setHgrow(spacer3, Priority.ALWAYS);
+
+		logoutButton.addEventHandler(MouseEvent.MOUSE_CLICKED,
+				new EventHandler<MouseEvent>() {
+
+					@Override
+					public void handle(MouseEvent me) {
+
+						notification.show(primaryStage, me, logoutButton);
+					}
+				});
+
+		logoutButton.setMaxHeight(Double.MAX_VALUE);
+		pageToolBar.getItems().addAll(spacer3, logoutButton);
+
+		BorderPane mainPane = new BorderPane();
 
 		FlowPane flow = new FlowPane();
 		flow.setPadding(new Insets(4, 4, 4, 4));
@@ -131,12 +166,18 @@ public class Test extends Application {
 								FileUtil.getImageAsImageView("user-info"))
 						.build());
 
-		root.setTop(toolBar);
-		root.setCenter(HBoxBuilder.create().prefWidth(40).children(flow)
+		mainPane.setTop(pageToolBar);
+		mainPane.setCenter(HBoxBuilder.create().prefWidth(40).children(flow)
 				.build());
+
+		root.setTop(toolBar);
+		root.setCenter(mainPane);
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+		notification = new Notification();
+
 	}
 
 	public static void main(String[] args) {

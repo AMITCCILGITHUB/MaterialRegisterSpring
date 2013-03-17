@@ -12,13 +12,13 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.map.constants.RecordStatus;
 import org.map.utils.Context;
 
@@ -65,12 +65,8 @@ public class CodeMaster implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator = "CODE_NUMBER_GENERATOR")
-	@GenericGenerator(name = "CODE_NUMBER_GENERATOR", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "CODE_NUMBER_SEQUENCE"),
-			@Parameter(name = "optimizer", value = "hilo"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "1") })
+	@TableGenerator(name = "CODE_NUMBER_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "CODE_NUMBER", initialValue = 1000, allocationSize = 100)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "CODE_NUMBER_GENERATOR")
 	@Column(name = "CODE_NUMBER", unique = true, nullable = false, length = 11)
 	public Integer getCodeNumber() {
 

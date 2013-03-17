@@ -13,16 +13,16 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 import org.map.constants.RecordStatus;
 import org.map.hibernate.property.RoleProperty;
 import org.map.utils.Context;
@@ -72,18 +72,14 @@ public class UserMaster implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(generator = "USER_CODE_GENERATOR")
-	@GenericGenerator(name = "USER_CODE_GENERATOR", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-			@Parameter(name = "sequence_name", value = "USER_CODE_SEQUENCE"),
-			@Parameter(name = "optimizer", value = "hilo"),
-			@Parameter(name = "initial_value", value = "1000"),
-			@Parameter(name = "increment_size", value = "1") })
+	@TableGenerator(name = "USER_CODE_GENERATOR", table = "ID_GEN", pkColumnName = "GEN_NAME", valueColumnName = "GEN_VAL", pkColumnValue = "USER_CODE", initialValue = 1000, allocationSize = 100)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "USER_CODE_GENERATOR")
 	@Column(name = "USER_CODE", unique = true, nullable = false, length = 11)
-	public int getUserCode() {
+	public Integer getUserCode() {
 		return this.userCode.get();
 	}
 
-	public void setUserCode(int userCode) {
+	public void setUserCode(Integer userCode) {
 		this.userCode.set(userCode);
 	}
 

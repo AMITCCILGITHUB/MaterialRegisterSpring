@@ -17,7 +17,7 @@ public class CodeData {
 
 	@Resource(name = "CodeDao")
 	private HibernateDao<CodeMaster, Integer> hibernateDao;
-	
+
 	public HibernateDao<CodeMaster, Integer> getHibernateDao() {
 
 		return hibernateDao;
@@ -27,7 +27,7 @@ public class CodeData {
 
 		this.hibernateDao = hibernateDao;
 	}
-	
+
 	public List<CodeMaster> getCodes() {
 
 		return (List<CodeMaster>) hibernateDao.list();
@@ -35,11 +35,11 @@ public class CodeData {
 
 	public List<CodeMaster> getCodes(String codeName) {
 
-		return (List<CodeMaster>) hibernateDao.list(Restrictions
-						.like("codeName", codeName, MatchMode.ANYWHERE));
+		return (List<CodeMaster>) hibernateDao.list(Restrictions.like(
+				"codeName", codeName, MatchMode.ANYWHERE));
 	}
 
-	public int getNextCodeNumber() throws HibernateException {
+	public Integer getNextCodeNumber() throws HibernateException {
 
 		return hibernateDao.nextCode(Projections.max("codeNumber"));
 	}
@@ -67,7 +67,7 @@ public class CodeData {
 
 	public List<String> getCodeNameList() {
 
-		return (List<String>) hibernateDao.list(
-						Projections.distinct(Projections.property("codeName")));
+		return (List<String>) hibernateDao.list(Projections
+				.distinct(Projections.property("codeName")));
 	}
 }

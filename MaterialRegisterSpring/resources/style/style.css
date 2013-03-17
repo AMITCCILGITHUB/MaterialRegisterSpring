@@ -456,14 +456,14 @@
 	-fx-opacity: 1;
 }
 
-#page-toolbar #LogoutButton {
-	-fx-border-color: transparent transparent transparent #6e737d,
-		transparent transparent transparent rgba(255, 255, 255, 0.3);
-	-fx-border-insets: 0, 0 1 0 1;
+.logout-button {
 	-fx-cursor: hand;
+	-fx-background-color: null;
+	-fx-background-image: url("../images/config-white.png");
+	-fx-background-repeat: no-repeat;
 }
 
-#page-toolbar #LogoutButton:hover {
+.logout-button:hover {
 	-fx-background-color: rgba(255, 255, 255, 0.4);
 }
 
