@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.DepthTest;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -166,69 +167,11 @@ public class Home {
 			}
 		});
 
-		System.out.println("Menu Size : "
-				+ Context.getLoggedUser().getRole().getMenu().size());
+		final TreeItem<String> tiRoot = new TreeItem<String>();
 		for (MenuMaster menu : Context.getLoggedUser().getRole().getMenu()) {
 
-			System.out.println(menu.getDisplayText());
+			tiRoot.getChildren().add(new TreeItem<>(menu.getDisplayText()));
 		}
-
-		final TreeItem<String> tiRoot = new TreeItem<String>();
-
-		if (Context.getLoggedUser().getRole().getName()
-				.equalsIgnoreCase("Admin")) {
-			tiRoot.getChildren().add(new TreeItem<>("Add User"));
-			tiRoot.getChildren().add(new TreeItem<>("View User"));
-			tiRoot.getChildren().add(new TreeItem<>("Edit User"));
-
-			tiRoot.getChildren().add(new TreeItem<>("Add Validation"));
-			tiRoot.getChildren().add(new TreeItem<>("View Validation"));
-			tiRoot.getChildren().add(new TreeItem<>("Edit Validation"));
-
-			tiRoot.getChildren().add(new TreeItem<>("Add Material"));
-			tiRoot.getChildren().add(new TreeItem<>("View Material"));
-			tiRoot.getChildren().add(new TreeItem<>("Edit Material"));
-			tiRoot.getChildren().add(new TreeItem<>("View Material Register"));
-
-			tiRoot.getChildren().add(new TreeItem<>("Add Heat Chart"));
-			tiRoot.getChildren().add(new TreeItem<>("View Heat Chart"));
-			tiRoot.getChildren().add(new TreeItem<>("Edit Heat Chart"));
-
-			tiRoot.getChildren().add(new TreeItem<>("Settings"));
-
-			tiRoot.getChildren().add(new TreeItem<>("Backup"));
-		}
-		if (Context.getLoggedUser().getRole().getName()
-				.equalsIgnoreCase("Maker")) {
-			tiRoot.getChildren().add(new TreeItem<>("Add Validation"));
-			tiRoot.getChildren().add(new TreeItem<>("View Material"));
-
-			tiRoot.getChildren().add(new TreeItem<>("Add Material"));
-			tiRoot.getChildren().add(new TreeItem<>("View Material"));
-
-			tiRoot.getChildren().add(new TreeItem<>("Add Heat Chart"));
-			tiRoot.getChildren().add(new TreeItem<>("View Heat Chart"));
-		}
-		if (Context.getLoggedUser().getRole().getName()
-				.equalsIgnoreCase("Normal")) {
-			tiRoot.getChildren().add(new TreeItem<>("View Validation"));
-			tiRoot.getChildren().add(new TreeItem<>("View Material"));
-			tiRoot.getChildren().add(new TreeItem<>("View Material Register"));
-			tiRoot.getChildren().add(new TreeItem<>("View Heat Chart"));
-		}
-		if (Context.getLoggedUser().getRole().getName()
-				.equalsIgnoreCase("Checker")) {
-			tiRoot.getChildren().add(new TreeItem<>("View Validation"));
-			tiRoot.getChildren().add(new TreeItem<>("Edit Validation"));
-
-			tiRoot.getChildren().add(new TreeItem<>("View Material"));
-			tiRoot.getChildren().add(new TreeItem<>("Edit Material"));
-			tiRoot.getChildren().add(new TreeItem<>("View Material Register"));
-
-			tiRoot.getChildren().add(new TreeItem<>("View Heat Chart"));
-			tiRoot.getChildren().add(new TreeItem<>("Edit Heat Chart"));
-		}
-		tiRoot.getChildren().add(new TreeItem<>("Change Password"));
 
 		final TreeView<String> pageTree = new TreeView<>(tiRoot);
 		pageTree.setId("page-tree");
@@ -284,6 +227,7 @@ public class Home {
 		logoutButton.setId("LogoutButton");
 
 		logoutButton.setGraphic(FileUtil.getImageAsImageView("logout"));
+		logoutButton.setCursor(Cursor.HAND);
 		logoutButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override

@@ -10,7 +10,7 @@ import org.map.hibernate.utils.UserData;
 import org.springframework.stereotype.Repository;
 
 @Repository("UserValidation")
-public class UserValidation extends Service<Boolean> {
+public class UserValidation extends Service<UserMaster> {
 
 	@Resource(name = "UserData")
 	private UserData userData;
@@ -28,14 +28,14 @@ public class UserValidation extends Service<Boolean> {
 	}
 
 	@Override
-	protected Task<Boolean> createTask() {
+	protected Task<UserMaster> createTask() {
 
-		return new Task<Boolean>() {
+		return new Task<UserMaster>() {
 
 			@Override
-			protected Boolean call() {
+			protected UserMaster call() {
 
-				return Boolean.valueOf(userData.validateUser(user));
+				return userData.getUserDetails(user);
 			}
 		};
 	}

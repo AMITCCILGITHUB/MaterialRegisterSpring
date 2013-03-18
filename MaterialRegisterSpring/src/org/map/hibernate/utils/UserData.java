@@ -32,20 +32,11 @@ public class UserData {
 		return hibernateDao.nextCode(Projections.max("userCode"));
 	}
 
-	public boolean validateUser(UserMaster user) {
+	public UserMaster getUserDetails(UserMaster user) {
 
-		Integer rowCount = 0;
-		try {
-			rowCount = hibernateDao
-					.list(Restrictions
-							.conjunction()
-							.add(Restrictions.eq("userName", user.getUserName()))
-							.add(Restrictions.eq("password", user.getPassword())))
-					.size();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return ((rowCount > 0) ? true : false);
+		return hibernateDao.get(Restrictions.conjunction()
+				.add(Restrictions.eq("userName", user.getUserName()))
+				.add(Restrictions.eq("password", user.getPassword())));
 	}
 
 	public UserMaster getUserDetails(String userName) {

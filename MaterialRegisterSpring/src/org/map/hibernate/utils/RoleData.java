@@ -26,6 +26,11 @@ public class RoleData {
 		this.hibernateDao = hibernateDao;
 	}
 
+	public RoleMaster getRole(Integer roleCode) {
+
+		return hibernateDao.get(roleCode);
+	}
+	
 	public List<RoleMaster> getRoleList() {
 
 		return (List<RoleMaster>) hibernateDao.list();
@@ -57,7 +62,7 @@ public class RoleData {
 
 	public void insertRole(RoleMaster role) {
 
-		if (role.getCode() <= 1000) {
+		if (role.getCode() < 1000) {
 
 			role.setCode(getNextRoleNumber());
 		}

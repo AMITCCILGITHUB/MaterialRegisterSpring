@@ -133,13 +133,13 @@ public class LoadPageView extends Service<Void> {
 		} else if (pageName.equalsIgnoreCase("View Material Register")) {
 
 			return pageUtil.getViewReport();
-		} else if (pageName.equalsIgnoreCase("Add Heat Chart")) {
+		} else if (pageName.equalsIgnoreCase("Add HeatChart")) {
 
 			return pageUtil.getAddHeatChart();
-		} else if (pageName.equalsIgnoreCase("View Heat Chart")) {
+		} else if (pageName.equalsIgnoreCase("View HeatChart")) {
 
 			return pageUtil.getViewHeatChart();
-		} else if (pageName.equalsIgnoreCase("Edit Heat Chart")) {
+		} else if (pageName.equalsIgnoreCase("Edit HeatChart")) {
 
 			return pageUtil.getEditHeatChart();
 		} else if (pageName.equalsIgnoreCase("Change Password")) {
@@ -148,7 +148,7 @@ public class LoadPageView extends Service<Void> {
 		} else if (pageName.equalsIgnoreCase("Settings")) {
 
 			return pageUtil.getSettings();
-		} else if (pageName.equalsIgnoreCase("Backup")) {
+		} else if (pageName.equalsIgnoreCase("Database Backup")) {
 
 			return pageUtil.getDatabaseBackup();
 		} else {

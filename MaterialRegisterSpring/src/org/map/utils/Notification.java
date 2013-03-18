@@ -20,7 +20,7 @@ import javafx.stage.Window;
 public final class Notification extends Popup {
 
 	private final int width = 256;
-	private final int gap = 32;
+	private final int gap = 40;
 
 	public Notification() {
 

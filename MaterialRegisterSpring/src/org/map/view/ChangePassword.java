@@ -36,6 +36,7 @@ public class ChangePassword implements AbstractPageView {
 	private AbstractService<UserMaster, Void> abstractService;
 
 	private ScrollPane pane;
+	
 	public ChangePassword(){
 		
 		pane = new ScrollPane();

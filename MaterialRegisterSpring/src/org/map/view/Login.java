@@ -11,7 +11,6 @@ import javafx.concurrent.Worker.State;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -25,11 +24,12 @@ import javafx.stage.StageStyle;
 
 import javax.annotation.Resource;
 
+import org.map.controls.CloseButton;
 import org.map.controls.LoginTextBox;
 import org.map.controls.PasswordBox;
 import org.map.controls.SubmitButton;
 import org.map.hibernate.ddo.UserMaster;
-import org.map.hibernate.utils.UserData;
+import org.map.hibernate.utils.RoleData;
 import org.map.logger.LoggerUtil;
 import org.map.service.UserValidation;
 import org.map.utils.Alert;
@@ -52,8 +52,8 @@ public class Login extends Application {
 	@Resource(name = "Home")
 	private Home home;
 
-	@Resource(name = "UserData")
-	private UserData data;
+	@Resource(name = "RoleData")
+	private RoleData roleData;
 
 	public static void main(String[] args) throws MalformedURLException {
 
@@ -90,11 +90,7 @@ public class Login extends Application {
 				FileUtil.getStyleAsUrl("popup"));
 
 		VBox windowButtons = new VBox();
-		Button closeBtn = new Button();
-		closeBtn.getStyleClass().add("close-button");
-		closeBtn.setPrefSize(16, 16);
-		closeBtn.setMinSize(16, 16);
-		closeBtn.setMaxSize(16, 16);
+		CloseButton closeBtn = new CloseButton(16);
 		closeBtn.setTranslateX(468);
 		closeBtn.setTranslateY(20);
 		windowButtons.getChildren().add(closeBtn);
@@ -225,12 +221,19 @@ public class Login extends Application {
 							State oldValue, Worker.State newState) {
 
 						if (newState == Worker.State.SUCCEEDED) {
-							if (userValidation.getValue()) {
+
+							UserMaster validUser = userValidation.getValue();
+							if (validUser != null) {
 
 								Context.getLoginSatusbar().hide();
-								Context.setLoggedUser(data.getUserDetails(user
-										.getUserName()));
 
+								validUser.getRole().setMenu(
+										roleData.getRole(
+												validUser.getRole().getCode())
+												.getMenu());
+								Context.setLoggedUser(validUser);
+
+								user.clean();
 								Context.getLoginStage().hide();
 								try {
 									home.showView();
@@ -272,5 +275,13 @@ public class Login extends Application {
 
 	public void setStartDragY(double startDragY) {
 		this.startDragY = startDragY;
+	}
+
+	public RoleData getRoleData() {
+		return roleData;
+	}
+
+	public void setRoleData(RoleData roleData) {
+		this.roleData = roleData;
 	}
 }
