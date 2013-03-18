@@ -36,12 +36,12 @@ public class ChangePassword implements AbstractPageView {
 	private AbstractService<UserMaster, Void> abstractService;
 
 	private ScrollPane pane;
-	
-	public ChangePassword(){
-		
+
+	public ChangePassword() {
+
 		pane = new ScrollPane();
 	}
-	
+
 	@Override
 	public Node showView() {
 
@@ -147,10 +147,10 @@ public class ChangePassword implements AbstractPageView {
 			return new ErrorView().showView();
 		}
 	}
-	
+
 	@Override
 	public DoubleProperty opacityProperty() {
-		
+
 		return pane.opacityProperty();
 	}
 

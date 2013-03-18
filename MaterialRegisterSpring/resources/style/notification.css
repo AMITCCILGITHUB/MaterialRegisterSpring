@@ -10,7 +10,7 @@
 
 .close-button:hover {
 	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 8, 0.5,
-		0, 0 );
+		0, 0);
 }
 
 .popUpBody {
@@ -30,8 +30,8 @@
 }
 
 .menu-text {
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+	-fx-font-size: 12px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #333333;
+	-fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1);
 }

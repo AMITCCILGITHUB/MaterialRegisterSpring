@@ -77,7 +77,7 @@ public class HeatChartData {
 
 	public String getNextChartNumber() throws HibernateException {
 
-		String currentYear = codeData.getCode("Default_Year").getCodeValue()
+		String currentYear = codeData.getCode("Year").getCodeValue()
 				.substring(2);
 
 		Integer nextNumber = Integer

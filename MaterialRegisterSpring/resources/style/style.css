@@ -9,7 +9,7 @@
 
 #ProxyDialog {
 	-fx-background-color: black, white, linear-gradient(rgb(250, 250, 250),
-		rgb(230, 230, 230) );
+		rgb(230, 230, 230));
 	-fx-background-insets: 0, 1, 2;
 	-fx-background-radius: 15, 14, 13;
 	-fx-padding: 15;
@@ -48,7 +48,7 @@
 
 #highlightsButton:hover,#newButton:hover {
 	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.6), 10, 0.5,
-		0, 0 );
+		0, 0);
 }
 
 #SearchBox .text-field {
@@ -257,8 +257,7 @@
 	-fx-background-insets: 0;
 	-fx-background-radius: 0;
 	-fx-padding: 0;
-	-fx-effect: innershadow(one-pass-box, rgba(0, 0, 0, 0.2), 30, 0.0, 0, 0
-		);
+	-fx-effect: innershadow(one-pass-box, rgba(0, 0, 0, 0.2), 30, 0.0, 0, 0);
 }
 
 #page-tree .tree-cell:hover {
@@ -350,7 +349,7 @@
 	-fx-font-weight: bold;
 	-fx-text-fill: linear-gradient(white, #acacac);
 	-fx-effect: innershadow(three-pass-box, rgba(255, 255, 255, 0.7), 0, 0.0,
-		0, -1 );
+		0, -1);
 }
 
 .category-page .label {
@@ -371,7 +370,7 @@
 	-fx-font-weight: bold;
 	-fx-text-fill: linear-gradient(white, #acacac);
 	-fx-effect: innershadow(three-pass-box, rgba(255, 255, 255, 0.7), 0, 0.0,
-		0, -1 );
+		0, -1);
 }
 
 .view-page .label {
@@ -396,7 +395,7 @@
 	-fx-font-weight: bold;
 	-fx-text-fill: linear-gradient(white, #acacac);
 	-fx-effect: innershadow(three-pass-box, rgba(255, 255, 255, 0.7), 0, 0.0,
-		0, -1 );
+		0, -1);
 }
 
 .category-page-flow {
@@ -481,7 +480,7 @@
 	-fx-font-weight: bold;
 	-fx-text-fill: #333333;
 	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.2), 1, 0.0,
-		0, 1 );
+		0, 1);
 }
 
 .bottom-bar Text {

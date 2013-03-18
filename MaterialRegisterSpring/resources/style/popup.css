@@ -22,8 +22,7 @@
 	-fx-text-fill: black;
 	-fx-font-size: 12px;
 	-fx-padding: 4 16 4 16;
-	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1
-		);
+	-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
 	-fx-cursor: hand;
 	-fx-font-weight: bold;
 	-fx-cursor: hand;
@@ -32,7 +31,7 @@
 
 .submit-button:hover {
 	-fx-effect: dropshadow(three-pass-box, rgba(255, 255, 255, 0.4), 8, 0.5,
-		0, 0 );
+		0, 0);
 }
 
 .popUpHeaderLbl {
